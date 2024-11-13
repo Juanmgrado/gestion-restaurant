@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { Table } from './table.entity';
 
 @Entity('reservations')
 export class Reservation {
@@ -16,4 +17,7 @@ export class Reservation {
 
   @Column({ type: 'int' })
   guests: number;
+
+  @ManyToOne(() => Table, (table) => table.reservations, { nullable: true })
+  table: Table;
 }
