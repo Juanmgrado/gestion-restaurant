@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 @Entity('users')
 export class User {
   @PrimaryGeneratedColumn('uuid')
-  id: number;
+  id: string;
 
   @Column({ type: 'varchar', length: 255 })
   name: string;

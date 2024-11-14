@@ -1,10 +1,11 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { SalesData } from './sales-data.entity';
+import { v4 as uuidv4 } from 'uuid';
 
 @Entity('products')
 export class Product {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column({ type: 'varchar', length: 255 })
   name: string;
