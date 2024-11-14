@@ -24,5 +24,6 @@ export class Table {
 
   // Relación con órdenes, una mesa puede tener múltiples órdenes mientras esté ocupada
   @ManyToOne(() => Order, (order) => order.table)
+
   orders: Order[];
 }

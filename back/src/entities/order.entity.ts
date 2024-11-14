@@ -9,7 +9,6 @@ export enum IOrderStatus{
   completed = 'completed'
 }
 
-
 @Entity('orders')
 export class Order {
   @PrimaryGeneratedColumn()
