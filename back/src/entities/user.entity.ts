@@ -1,15 +1,8 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, OneToOne } from 'typeorm';
 import { Order } from './order.entity';
-<<<<<<< HEAD
-import { v4 as uuidv4 } from 'uuid';
-
-@Entity('users')
-export class User {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
-=======
 import { Reservation } from './reservation.entity';
 import { Employee } from './employees.entity';
+import { v4 as uuidv4 } from 'uuid';
 
 export enum IRol{
   user = 'user',
@@ -19,9 +12,8 @@ export enum IRol{
 
 @Entity('users')
 export class User {
-  @PrimaryGeneratedColumn()
-  uuid: string;
->>>>>>> f90b19a37227565b9928b980017761e188b9fc19
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column({ type: 'varchar', nullable: false, unique: true, })
   fullName: string;

@@ -12,5 +12,5 @@ export class CreateProductDto {
   @IsOptional()
   @IsString()
   @MaxLength(255)
-  category: string;
+  categoryId: string;
 }
