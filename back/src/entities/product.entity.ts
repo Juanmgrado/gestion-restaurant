@@ -1,21 +1,37 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
-import { SalesData } from './sales-data.entity';
+import { Entity, Column, PrimaryGeneratedColumn,VersionColumn, ManyToOne} from 'typeorm';
+import { Order } from './order.entity';
+
+export enum IProductCategory{
+  mediterranean = 'mediterranean',
+  sushi = 'sushi',
+  grill = 'grill',
+  entrance = 'entrance',
+  dessert = 'dessert'
+}
 
 @Entity('products')
 export class Product {
   @PrimaryGeneratedColumn()
-  id: number;
+  uuiid: string;
 
-  @Column({ type: 'varchar', length: 255 })
+  @Column({nullable: false, unique: true})
   name: string;
 
   @Column({ type: 'decimal', precision: 10, scale: 2 })
   price: number;
 
-  @Column({ type: 'varchar', length: 255, nullable: true })
-  category: string; // Añadido como una propiedad para la categoría
+  @Column({nullable: false, type: 'enum', enum: IProductCategory})
+  category: IProductCategory; 
 
-  // Relación uno a muchos con SalesData para registrar ventas del producto
-  @OneToMany(() => SalesData, (salesData) => salesData.product, { nullable: true })
-  salesData: SalesData[];
+  @Column({nullable: false})
+  productDescription: string;
+
+  @Column()
+  stock: number;
+
+  @VersionColumn()
+  version: number;
+
+  @ManyToOne(() => Order, (order) => order.products)
+  order: Order;
 }

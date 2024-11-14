@@ -1,23 +1,42 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToMany } from 'typeorm';
-import { User } from './user.entity';
-import { OrderItem } from './order-item.entity';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Table } from './table.entity';
+import { Employee } from './employees.entity';
+import { Product } from './product.entity';
+
+export enum IOrderStatus{
+  pending = 'pending',
+  inProgress = 'in progress',
+  completed = 'completed'
+}
+
 
 @Entity('orders')
 export class Order {
   @PrimaryGeneratedColumn()
-  id: number;
+  uuiid: string;
 
-  @Column({ type: 'varchar', length: 255 })
-  table: string;
+  @Column({ type: 'enum', enum: IOrderStatus, default: IOrderStatus.inProgress })
+  status:IOrderStatus;
 
-  @Column({ type: 'enum', enum: ['Pendiente', 'En proceso', 'Completado'] })
-  status: 'Pendiente' | 'En proceso' | 'Completado';
+  @Column({type: 'timestamp', default: ()=> 'Current_TIMESTAMP'})
+  date: Date;
 
-  // Relación muchos a uno con el usuario (mesero)
-  @ManyToOne(() => User, (user) => user.orders, { nullable: true })
-  waiter: User;
+  @Column({nullable: false})
+  quantity: number;
 
-  // Relación uno a muchos con los elementos de la orden
-  @OneToMany(() => OrderItem, (orderItem) => orderItem.order, { cascade: true })
-  items: OrderItem[];
+  @Column({nullable: false})
+  total: number;
+
+  @Column({default: false})
+  isActive: boolean;
+  
+  @OneToMany(() => Employee, (employee) => employee.orders, { nullable: false })
+  employee: Employee;
+
+  @OneToMany(() => Table, (table) => table.orders, { nullable: true })
+  table: Table;
+
+  @OneToMany(() => Product, (products) => products.order)
+  products: Product[]
+
 }
