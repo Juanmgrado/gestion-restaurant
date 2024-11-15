@@ -5,7 +5,7 @@ export class SalesData {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'timestamp', default: 'Current_TIMESTAMP' })
+  @Column({ type: 'timestamp', default: 'now()' })
   name: string;
 
   @Column()

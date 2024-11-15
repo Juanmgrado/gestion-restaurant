@@ -8,6 +8,7 @@ async function bootstrap() {
   // Habilitar la validación global
   app.useGlobalPipes(new ValidationPipe());
   
+  app.setGlobalPrefix('api')
   await app.listen(3000);
 }
 bootstrap();
