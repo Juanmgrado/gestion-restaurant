@@ -18,7 +18,7 @@ export class Order {
   @Column({ type: 'enum', enum: IOrderStatus, default: IOrderStatus.inProgress })
   status:IOrderStatus;
 
-  @Column({type: 'timestamp', default: ()=> 'Current_TIMESTAMP'})
+  @Column({ type: 'timestamp', default: () => 'current_timestamp' })
   date: Date;
 
   @Column({nullable: false})

@@ -11,13 +11,13 @@ export class Reservation {
   @Column({ type: 'varchar', length: 255 })
   name: string;
 
-  @Column({type: 'timestamp', default: ()=> 'Current_TIMESTAMP'})
+  @Column({ type: 'timestamp', default: () => 'current_timestamp' })
   date: Date;
-
-  @Column({ type: 'datetime' })
+  
+  @Column({ type: 'timestamp' })
   startTime: Date;  
 
-  @Column({ type: 'datetime' })
+  @Column({ type: 'timestamp' })
   endTime: Date; 
 
   @Column({ type: 'int' })
