@@ -2,6 +2,7 @@ import { Entity, Column, PrimaryGeneratedColumn, OneToMany, OneToOne } from 'typ
 import { Order } from './order.entity';
 import { Reservation } from './reservation.entity';
 import { Employee } from './employees.entity';
+import { v4 as uuidv4 } from 'uuid';
 
 export enum IRol{
   user = 'user',
@@ -11,11 +12,11 @@ export enum IRol{
 
 @Entity('users')
 export class User {
-  @PrimaryGeneratedColumn()
-  uuid: string;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column({ type: 'varchar', nullable: false, unique: true, })
-  fullName: string;
+  name: string;
 
   @Column({unique: true, nullable: false })
   username: string;

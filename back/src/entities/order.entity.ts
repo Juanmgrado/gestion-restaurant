@@ -9,7 +9,6 @@ export enum IOrderStatus{
   completed = 'completed'
 }
 
-
 @Entity('orders')
 export class Order {
   @PrimaryGeneratedColumn()
@@ -19,6 +18,7 @@ export class Order {
   status:IOrderStatus;
 
   @Column({ type: 'timestamp', default: () => 'current_timestamp' })
+  @Column({type: 'timestamp', default: ()=> 'now()'})
   date: Date;
 
   @Column({nullable: false})

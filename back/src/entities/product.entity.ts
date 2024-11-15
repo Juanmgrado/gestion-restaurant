@@ -1,5 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn,VersionColumn, ManyToOne} from 'typeorm';
 import { Order } from './order.entity';
+import { v4 as uuidv4 } from 'uuid';
 
 export enum IProductCategory{
   mediterranean = 'mediterranean',
@@ -11,8 +12,8 @@ export enum IProductCategory{
 
 @Entity('products')
 export class Product {
-  @PrimaryGeneratedColumn()
-  uuiid: string;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column({nullable: false, unique: true})
   name: string;

@@ -8,6 +8,10 @@
 //   @Column({ type: 'timestamp', default: 'Current_TIMESTAMP' })
 //   name: string;
 
+  @Column({ type: 'timestamp', default: 'now()' })
+  name: string;
+
+
 //   @Column()
 //   sellingTotal: number;
 
