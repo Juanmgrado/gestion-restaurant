@@ -16,7 +16,7 @@ export class User {
   id: string;
 
   @Column({ type: 'varchar', nullable: false, unique: true, })
-  fullName: string;
+  name: string;
 
   @Column({unique: true, nullable: false })
   username: string;
