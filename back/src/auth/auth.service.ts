@@ -36,7 +36,7 @@ export class AuthService {
         };
     }
 
-    async register({name, email, password, role}: RegisterDto) {
+    async register({name, email, password, role, username}: RegisterDto) {
 
         const user = await this.userService.findOneByEmail(email);
 
@@ -44,10 +44,13 @@ export class AuthService {
             throw new BadRequestException('El usuario ya está registrado')
         }
 
+        const generatedUsername = username || name.toLowerCase().replace(/\s+/g, '') + Math.random().toString(36).substring(2, 10);
+
          return await this.userService.create({ 
             name, 
             email, 
             password: await bcryptjs.hash(password, 10), 
-            role})
+            role,
+            username: generatedUsername})
     }
 }

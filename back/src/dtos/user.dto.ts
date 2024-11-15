@@ -10,7 +10,7 @@ export enum UserRole {
 export class CreateUserDto {
   @IsString()
   @IsNotEmpty()
-  readonly nombre: string;
+  readonly name: string;
 
   @IsString()
   @IsNotEmpty()
