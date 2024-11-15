@@ -11,9 +11,9 @@ export class Reservation {
   @Column({ type: 'varchar', length: 255 })
   name: string;
 
-  @Column({type: 'timestamp', default: ()=> 'now()'})
+  @Column({ type: 'timestamp', default: () => 'current_timestamp' })
   date: Date;
-
+  
   @Column({ type: 'timestamp' })
   startTime: Date;  
 

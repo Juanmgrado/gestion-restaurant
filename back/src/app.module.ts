@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import typeOrmCongif from './config/typeOrm.congif';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { UsersModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { ProductsModule } from './products/products.module';
 
@@ -18,6 +19,7 @@ import { ProductsModule } from './products/products.module';
         useFactory: (configService: ConfigService) =>
           configService.get('typeOrm'),
       }),
+      UsersModule
       AuthModule,
       ProductsModule
   ],
