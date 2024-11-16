@@ -4,13 +4,15 @@ import { RegisterDto } from './dto/register.dto';
 import * as bcryptjs from 'bcryptjs'
 import { LoginDto } from './dto/login.dto';
 import { JwtService } from '@nestjs/jwt';
+import { MailsService } from 'src/mails/mails.service';
 
 @Injectable()
 export class AuthService {
 
     constructor(
         private readonly userService: UsersService,
-        private readonly jwtService: JwtService
+        private readonly jwtService: JwtService,
+        private readonly mailService: MailsService
     ) {}
 
     async login({email, password}: LoginDto) {
@@ -46,11 +48,21 @@ export class AuthService {
 
         const generatedUsername = username || name.toLowerCase().replace(/\s+/g, '') + Math.random().toString(36).substring(2, 10);
 
-         return await this.userService.create({ 
+        const newUser = await this.userService.create({ 
             name, 
             email, 
             password: await bcryptjs.hash(password, 10), 
             role,
-            username: generatedUsername})
+            username: generatedUsername});
+
+            try {
+                await this.mailService.sendUserConfirmation(newUser);
+              } catch (error) {
+                console.error('Error enviando correo:', error);
+              }
+              console.log('Correo enviado');
+
+              return newUser;
+            
     }
 }
