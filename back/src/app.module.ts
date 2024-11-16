@@ -19,7 +19,7 @@ import { ProductsModule } from './products/products.module';
         useFactory: (configService: ConfigService) =>
           configService.get('typeOrm'),
       }),
-      UsersModule
+      UsersModule,
       AuthModule,
       ProductsModule
   ],
