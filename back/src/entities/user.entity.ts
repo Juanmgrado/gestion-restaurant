@@ -4,10 +4,11 @@ import { Reservation } from './reservation.entity';
 import { Employee } from './employees.entity';
 import { v4 as uuidv4 } from 'uuid';
 
-export enum IRol{
-  user = 'user',
-  admin = 'admin',
-  owner = 'owner'
+export enum IRole{
+  client = 'cliente',
+  admin = 'administrador',
+  chef = 'cocinero',
+  waitter = 'mesero'
 }
 
 @Entity('users')
@@ -28,8 +29,8 @@ export class User {
 
   password: string;
  
-  @Column({ type: 'enum', enum: IRol, default: IRol.user})
-  rol: IRol;
+  @Column({ type: 'enum', enum: IRole, default: IRole.client})
+  role: IRole;
 
   @Column({ default: true })
   isActive: boolean;

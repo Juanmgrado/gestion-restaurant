@@ -1,13 +1,14 @@
 import { Transform } from "class-transformer";
 import { IsEmail, IsEnum, IsString, MinLength, IsNotEmpty } from "class-validator";
 import { ApiProperty } from '@nestjs/swagger';
+import { IRole } from "src/entities/user.entity";
 
-export enum Role {
-    Mesero = 'mesero',
-    Cocinero = 'cocinero',
-    Admin = 'admin',
-    Cliente = 'cliente',
-}
+// export enum Role {
+//     Mesero = 'mesero',
+//     Cocinero = 'cocinero',
+//     Admin = 'admin',
+//     Cliente = 'cliente',
+// }
 
 export class RegisterDto {
     @ApiProperty({
@@ -45,9 +46,9 @@ export class RegisterDto {
 
     @ApiProperty({
         description: 'Rol del usuario en el sistema.',
-        enum: Role,
-        example: Role.Admin,
+        enum: IRole,
+        example: IRole.admin,
     })
-    @IsEnum(Role)
-    role: Role;
+    @IsEnum(IRole)
+    role: IRole;
 }
