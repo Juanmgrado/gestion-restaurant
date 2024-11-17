@@ -1,4 +1,5 @@
-import { IsString, IsNumber, IsNotEmpty, IsOptional } from 'class-validator';
+import { IsString, IsNumber, IsNotEmpty, IsEnum, IsUrl, } from 'class-validator';
+import { IProductCategory, IProductSubcategory } from 'src/entities/product.entity';
 
 export class CreateProductDto {
   @IsString()
@@ -8,12 +9,26 @@ export class CreateProductDto {
   @IsNumber()
   @IsNotEmpty()
   readonly price: number;
+  
+  @IsString()
+  @IsNotEmpty()
+  readonly description: string 
 
   @IsNumber()
   @IsNotEmpty()
   readonly stock: number;
 
-  @IsNumber()
-  @IsOptional()
-  readonly categoryId: number;
+  @IsNotEmpty()
+  @IsEnum(IProductCategory)
+  readonly category: IProductCategory
+
+  @IsString()
+  @IsUrl()
+  @IsNotEmpty()
+  readonly image: string;
+
+  @IsNotEmpty()
+  @IsEnum(IProductSubcategory)
+  readonly subcategory: IProductSubcategory;
+
 }
