@@ -18,32 +18,27 @@ export class ReservationsService {
         private readonly reservationsRespository: Repository <Reservation>
     ){}
 
-    async createReservation(newReservation: CreateReservationDto, userUuid: string): Promise <ReturnedReservation |null> {
 
-        const { startTime, tableNumber, day } = newReservation;
-        
-        const foundUser = await this.userRepository.findOneBy({uuid: userUuid})
-            if(!foundUser) throw new NotFoundException('Usuario no encontrado');
-        
-        const foundTable = await this.tableRespository.findOneBy({tableNumber})
-            if (!foundTable) throw new NotFoundException('Número de mesa incorrecto');
+    async createReservation(newReservation: CreateReservationDto, userUuid: string): Promise<ReturnedReservation | null> {
+        const { startTime, tableNumber, day, guests } = newReservation;
 
-            const existingReservation = await this.reservationsRespository.findOne({
-                where: {
-                    tableNumber: tableNumber,  
-                    startTime: startTime,
-                    day: day  
-                },
-              });
-              
-              if (existingReservation) throw new ConflictException('Reserva no disponible')    
+        const foundUser = await this.userRepository.findOne({ where: { uuid: userUuid } });
+        if (!foundUser) throw new NotFoundException('Usuario no encontrado');
+
+        const foundTable = await this.tableRespository.findOne({ where: { tableNumber } });
+        if (!foundTable) throw new NotFoundException('Número de mesa incorrecto');
+
         
-        const createdReservation = new Reservation()
-            Object.assign(createdReservation, newReservation)
-            createdReservation.table = foundTable,
-            createdReservation.user = foundUser
-            
-            await this.reservationsRespository.save(createdReservation);
+        const createdReservation = this.reservationsRespository.create({
+            day,
+            startTime,
+            guests,
+            tableNumber,
+            table: foundTable,
+            user: foundUser,
+        });
+
+        await this.reservationsRespository.save(createdReservation);
 
         return {
             reservIdentification: createdReservation.uuid,
@@ -51,8 +46,8 @@ export class ReservationsService {
             startTime: createdReservation.startTime,
             guest: createdReservation.guests,
             tableNumber: createdReservation.tableNumber,
-            user: foundUser.username
-        }
-            
+            user: foundUser.username,
+        };
     }
+
 }
