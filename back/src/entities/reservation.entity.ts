@@ -11,19 +11,21 @@ export class Reservation {
   @Column({ type: 'timestamp', default: () => 'current_timestamp' })
   date: Date;
   
+  @Column()
+  day: Date;
+  
   @Column({ type: 'timestamp' })
-  startTime: Date;  
-
-  @Column({ type: 'timestamp' })
-  endTime: Date; 
+  startTime: Date;
 
   @Column({ type: 'int' })
   guests: number;
 
+  @Column()
+  tableNumber: number;
+
   @ManyToOne(() => User, (user) => user.reservations)
-  user: Reservation;
+  user: User;
 
   @ManyToOne(() => Table, (table) => table.reservations, { nullable: true })
   table: Table;
-
 }
