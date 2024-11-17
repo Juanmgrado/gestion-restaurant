@@ -15,6 +15,9 @@ export class Table {
   @Column({ nullable: false})
   tableNumber: number;
 
+  @Column({nullable: false})
+  capacityMax: number;
+
   @Column({ type: 'enum', enum: ITableState, default: ITableState.free })
   status: ITableState;
 
@@ -24,6 +27,6 @@ export class Table {
 
   // Relación con órdenes, una mesa puede tener múltiples órdenes mientras esté ocupada
   @ManyToOne(() => Order, (order) => order.table)
-
   orders: Order[];
+
 }

@@ -9,7 +9,7 @@ async function bootstrap() {
   // Habilitar la validación global
   app.useGlobalPipes(new ValidationPipe());
   
-  app.setGlobalPrefix('api')
+  // app.setGlobalPrefix('api')
 
   const config = new DocumentBuilder()
   .setTitle('API de restaurante')

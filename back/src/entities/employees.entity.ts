@@ -3,8 +3,9 @@ import { User } from "./user.entity";
 import { Order } from "./order.entity";
 
 export enum ICargo{
-    chef = 'cocinero',
+    chef = 'cheff',
     waitter = 'waitter',
+    bartender = 'bartender'
 }
 @Entity('employees')
 export class Employee{

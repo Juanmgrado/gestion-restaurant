@@ -8,8 +8,8 @@ export class CreateUserDto {
   @IsNotEmpty()
   @Length(3, 40)
   @Matches(/^[a-zA-Z\s]+$/)  
-  readonly fullName: string;
-  readonly name: string;
+  readonly fullname: string;
+  
 
   @IsNotEmpty()
   @IsString()

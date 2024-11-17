@@ -8,9 +8,6 @@ export class Reservation {
   @PrimaryGeneratedColumn()
   uuid: string;
 
-  @Column({ type: 'varchar', length: 255 })
-  name: string;
-
   @Column({ type: 'timestamp', default: () => 'current_timestamp' })
   date: Date;
   
