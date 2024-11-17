@@ -3,6 +3,8 @@ import { CreateReservationDto } from 'src/dtos/reservation.dto';
 import { JwtStrategy } from 'src/guards/jwt.guard';
 import { UserData } from 'src/user/user.decorator';
 import { ReservationsService } from './reservations.service';
+import { Authguard } from 'src/guards/rol.guard';
+import { Roles } from 'src/decorators/rol.decorator';
 
 @Controller('reservations')
 export class ReservationsController {
@@ -11,7 +13,8 @@ export class ReservationsController {
     ){}
 
     @Post('booking')
-    @UseGuards(JwtStrategy)
+    @UseGuards(JwtStrategy, Authguard)
+    @Roles()
     @HttpCode(201)
     async createReservation(
         @Body()newReservation: CreateReservationDto,
