@@ -1,4 +1,5 @@
-import { IsString, IsNumber, IsOptional, MaxLength, Min, IsPositive } from 'class-validator';
+import { IsString, IsNumber, IsOptional, MaxLength, Min, IsPositive, IsUrl, IsEnum } from 'class-validator';
+import { IProductCategory, IProductSubcategory } from 'src/entities/product.entity';
 
 export class CreateProductDto {
   @IsString()
@@ -8,9 +9,15 @@ export class CreateProductDto {
   @IsNumber({ maxDecimalPlaces: 2 })
   @IsPositive()
   price: number;
-
-  @IsOptional()
+  
+  @IsUrl()
+  image: string
   @IsString()
-  @MaxLength(255)
-  categoryId: string;
+  description:string
+
+  @IsString()
+  category: IProductCategory;
+
+  @IsString()
+  subcagtegory: IProductSubcategory
 }

@@ -21,8 +21,10 @@ export class ProductsController {
           description: 'Pizza con tomate, queso y albahaca.',
           price: 12.99,
           stock: 100,
-          category: "mediterranean",
-          productDescription: "muy sabrosa"
+          category: "Platos Principales", 
+          subcategory: "Mediterranea",    
+          productDescription: "Muy sabrosa y fresca, hecha con ingredientes de calidad.",
+          image: 'https://example.com/images/pizza-margarita.jpg',
         },
       },
     },

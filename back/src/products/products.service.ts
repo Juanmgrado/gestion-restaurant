@@ -56,4 +56,4 @@ async remove(id: string): Promise<string> {
   await this.productRepository.remove(product);
   return `Product with id #${id} has been removed`;
 }
-   } 
+  } 
