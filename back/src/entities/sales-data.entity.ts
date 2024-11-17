@@ -1,15 +1,19 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+// import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 
-@Entity('sales_data')
-export class SalesData {
-  @PrimaryGeneratedColumn()
-  id: number;
+// @Entity('sales_data')
+// export class SalesData {
+//   @PrimaryGeneratedColumn()
+//   id: number;
 
-  @Column({ type: 'timestamp', default: 'now()' })
-  name: string;
+//   @Column({ type: 'timestamp', default: 'Current_TIMESTAMP' })
+//   name: string;
 
-  @Column()
-  sellingTotal: number;
+  // @Column({ type: 'timestamp', default: 'now()' })
+  // name: string;
 
 
-}
+//   @Column()
+//   sellingTotal: number;
+
+
+// }
