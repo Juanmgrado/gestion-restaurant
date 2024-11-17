@@ -1,8 +1,11 @@
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 
 export const UserData = createParamDecorator(
-  (data: unknown, ctx: ExecutionContext) => {
+  (data: keyof any, ctx: ExecutionContext) => {
     const request = ctx.switchToHttp().getRequest();
-    return request.user; 
+    const user = request.user;
+
+    // Si 'data' es específico (e.g., 'uuid'), devolver solo esa propiedad.
+    return data ? user?.[data] : user;
   },
 );
