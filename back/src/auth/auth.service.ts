@@ -7,7 +7,7 @@ import { IRol } from 'src/entities/user.entity';
 import { LoginDto } from 'src/dtos/singin.dto';
 import { UUID } from 'typeorm/driver/mongodb/bson.typings';
 
-interface IPayload{
+export interface IPayload{
     uuid: string,
     username: string,
     email: string,
@@ -16,7 +16,6 @@ interface IPayload{
 
 @Injectable()
 export class AuthService {
-
     constructor(
         private readonly userService: UserService,
         private readonly jwtService: JwtService
