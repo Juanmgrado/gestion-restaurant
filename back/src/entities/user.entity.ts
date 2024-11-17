@@ -5,7 +5,7 @@ import { Employee } from './employees.entity';
 
 export enum IRol{
   user = 'user',
-  admin = 'admin',
+  manager = 'manager',
 }
 
 @Entity('users')
@@ -14,7 +14,7 @@ export class User {
   uuid: string;
 
   @Column({ type: 'varchar', nullable: false, unique: true, })
-  name: string;
+  fullname: string;
 
   @Column({unique: true, nullable: false })
   username: string;
@@ -23,7 +23,6 @@ export class User {
   email: string;
     
   @Column({ type: 'varchar', length: 255 , nullable: false})
-
   password: string;
  
   @Column({ type: 'enum', enum: IRol, default: IRol.user})

@@ -8,9 +8,4 @@ export class UserController {
         private readonly userService: UserService
     ){}
 
-    @Put('createUser')
-    @HttpCode(201)
-    async createUser(@Body() newUser: CreateUserDto){
-        return await this.userService.createUser(newUser)
-    }
 }
