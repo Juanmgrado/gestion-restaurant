@@ -1,6 +1,10 @@
-import { Body, Controller, HttpCode, Post } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, Post, UseGuards } from '@nestjs/common';
 import { TableService } from './table.service';
 import { CreateTableDto } from 'src/dtos/addTable.dto';
+import { Authguard } from 'src/guards/auth.guard';
+import { Roles } from 'src/decorators/rol.decorator';
+import { IRol } from 'src/entities/user.entity';
+import { RolesGuard } from 'src/guards/rol.guard';
 
 @Controller('table')
 export class TableController {
@@ -8,7 +12,14 @@ export class TableController {
         private readonly tableService: TableService
     ){}
 
+    @Get('tablesSeeder')
+    async tableSeeder(){
+        return this.tableService.tableSeeder()
+    }
+
     @Post('addTable')
+    @UseGuards(Authguard, RolesGuard)
+    @Roles(IRol.manager)
     @HttpCode(201)
     async addTable(
         @Body()newTable: CreateTableDto
@@ -16,5 +27,5 @@ export class TableController {
         return await this.tableService.addTable(newTable)
     }
 
-
 }
+
