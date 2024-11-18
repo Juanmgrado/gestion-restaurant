@@ -16,9 +16,15 @@ export class TableService {
         
 
         data?.map(async table => {
-            const newTable = new Table()
-                newTable.tableNumber = table.tableNumber
-                await this.tableRepository.save(newTable)
+            
+            await this.tableRepository.
+            createQueryBuilder()
+            .insert()
+            .into(Table)
+            .values({
+                uuid: table.uuid,
+                tableNumber: table.tableNumber})
+            .execute()
         })
         
         return "Mesas agregadas con éxito";

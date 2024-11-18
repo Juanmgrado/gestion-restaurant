@@ -10,7 +10,7 @@ export enum IStatus{
 
 @Entity('reservations')
 export class Reservation {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   uuid: string;
 
   @Column({ type: 'timestamp', default: () => 'current_timestamp' })

@@ -7,9 +7,10 @@ export enum ICargo{
     waitter = 'waitter',
     bartender = 'bartender'
 }
+
 @Entity('employees')
 export class Employee{
-    @PrimaryGeneratedColumn()
+    @PrimaryGeneratedColumn('uuid')
     uuid: string;
 
     @Column({nullable: false, unique: true})

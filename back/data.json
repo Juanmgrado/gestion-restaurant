@@ -1,47 +1,62 @@
 [
     {
+      "uuid": "b83abdd7-80e1-4977-8f98-2205bc84fa0d",
       "tableNumber": 1
     },
     {
+      "uuid": "1a2a2b6e-f1d3-4cb9-b23b-528a23e59162",
       "tableNumber": 2
     },
     {
+      "uuid": "e9183b4a-5f91-464d-8cf0-6c64d2bb8c94",
       "tableNumber": 3
     },
     {
+      "uuid": "fa37013d-d22d-4b23-a18a-cd6c77a3787c",
       "tableNumber": 4
     },
     {
+      "uuid": "b3c8ad7f-3e65-4f87-bfe7-eaa1d59fe469",
       "tableNumber": 5
     },
     {
+      "uuid": "f846a1c5-d4a9-4ea4-9c16-444555fc5f1d",
       "tableNumber": 6
     },
     {
+      "uuid": "f95c4b6d-36d6-4b13-b632-fbdb2b79b762",
       "tableNumber": 7
     },
     {
+      "uuid": "ee389fff-fada-4eb7-9035-c27657863c60",
       "tableNumber": 8
     },
     {
+      "uuid": "be25c1fd-7629-4cd0-bf98-d9cfa295d68f",
       "tableNumber": 9
     },
     {
+      "uuid": "cf394441-1f84-4719-b658-1b4e93bbbf0b",
       "tableNumber": 10
     },
     {
+      "uuid": "f7d597db-1f68-4f9c-88de-ef70f7a41519",
       "tableNumber": 11
     },
     {
+      "uuid": "924d0298-fc16-46cc-b2a1-dc98677b0f98",
       "tableNumber": 12
     },
     {
+      "uuid": "e1d1e7ab-3d79-4eb4-9279-5d1e542e7273",
       "tableNumber": 13
     },
     {
+      "uuid": "05d5d210-2f30-4e68-b370-1fd918ab4376",
       "tableNumber": 14
     },
     {
+      "uuid": "e87ef1d6-37c5-4f8a-bcc1-bf2fa21b0da1",
       "tableNumber": 15
     }
   ]
