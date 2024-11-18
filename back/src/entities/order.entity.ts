@@ -2,7 +2,12 @@ import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { Table } from './table.entity';
 import { Employee } from './employees.entity';
 import { Product } from './product.entity';
-import { IStatus } from './reservation.entity';
+
+export enum IStatus{
+  pending = 'pending',
+  active = 'active',
+  canceled = 'canceled'
+}
 
 export enum IPriority{
   low = 'low',

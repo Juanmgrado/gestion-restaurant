@@ -1,4 +1,4 @@
-import { Body, Controller, HttpCode, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, Post, UseGuards } from '@nestjs/common';
 import { TableService } from './table.service';
 import { CreateTableDto } from 'src/dtos/addTable.dto';
 import { Authguard } from 'src/guards/auth.guard';
@@ -11,6 +11,11 @@ export class TableController {
     constructor(
         private readonly tableService: TableService
     ){}
+
+    @Get('tablesSeeder')
+    async tableSeeder(){
+        return this.tableService.tableSeeder()
+    }
 
     @Post('addTable')
     @UseGuards(Authguard, RolesGuard)
