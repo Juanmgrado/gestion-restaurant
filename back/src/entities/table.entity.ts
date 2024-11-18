@@ -9,7 +9,7 @@ export enum ITableState{
 }
 @Entity('tables')
 export class Table {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   uuid: string;
 
   @Column({ nullable: false})
