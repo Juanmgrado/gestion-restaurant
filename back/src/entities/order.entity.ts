@@ -2,13 +2,7 @@ import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { Table } from './table.entity';
 import { Employee } from './employees.entity';
 import { Product } from './product.entity';
-import { User } from './user.entity';
-
-export enum IOrderStatus{
-  pending = 'pending',
-  inProgress = 'in progress',
-  completed = 'completed'
-}
+import { IStatus } from './reservation.entity';
 
 export enum IPriority{
   low = 'low',
@@ -21,8 +15,8 @@ export class Order {
   @PrimaryGeneratedColumn()
   uuiid: string;
 
-  @Column({ type: 'enum', enum: IOrderStatus, default: IOrderStatus.inProgress })
-  status:IOrderStatus;
+  @Column({ type: 'enum', enum: IStatus, default: IStatus.pending })
+  status:IStatus;
 
   @Column({ type: 'timestamp', default: () => 'current_timestamp' })
   @Column({type: 'timestamp', default: ()=> 'now()'})
