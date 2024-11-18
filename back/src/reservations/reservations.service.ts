@@ -46,6 +46,7 @@ export class ReservationsService {
             startTime: createdReservation.startTime,
             guest: createdReservation.guests,
             tableNumber: createdReservation.tableNumber,
+            status: createdReservation.status,
             user: foundUser.username,
         };
     }

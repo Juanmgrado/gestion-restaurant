@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from 'src/entities/user.entity';
 import { Reservation } from 'src/entities/reservation.entity';
 import { Table } from 'src/entities/table.entity';
+import { NodemailerService } from 'src/nodemailer/nodemailer.service';
 
 @Module({
   imports:[
@@ -15,6 +16,6 @@ import { Table } from 'src/entities/table.entity';
     ])
   ],
   controllers: [ReservationsController],
-  providers: [ReservationsService]
+  providers: [ReservationsService, NodemailerService]
 })
 export class ReservationsModule {}

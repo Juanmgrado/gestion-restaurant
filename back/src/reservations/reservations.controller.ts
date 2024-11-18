@@ -3,12 +3,14 @@ import { CreateReservationDto } from 'src/dtos/reservation.dto';
 import { GetUser } from 'src/decorators/user.decorator';
 import { ReservationsService } from './reservations.service';
 import { Authguard } from 'src/guards/auth.guard';
-import { IRol } from 'src/entities/user.entity';
+import { NodemailerService } from 'src/nodemailer/nodemailer.service';
+import { ReturnedReservation } from 'src/dtos/ReturnedReservation.dto';
 
 @Controller('reservations')
 export class ReservationsController {
     constructor(
-        private readonly reservationsService: ReservationsService
+        private readonly reservationsService: ReservationsService,
+        private readonly nodemailer: NodemailerService
     ){}
 
     @Post('booking')
@@ -16,8 +18,12 @@ export class ReservationsController {
     @HttpCode(201)
     async createReservation(
         @Body()newReservation: CreateReservationDto,
-        @GetUser('uuid') userUuid: string
+        @GetUser('uuid') userUuid: string,
+        @GetUser('email') userEmail: string
     ){
-        return await this.reservationsService.createReservation(newReservation, userUuid)
+        const returnedReservation: ReturnedReservation = await this.reservationsService.createReservation(newReservation, userUuid)
+        await this.nodemailer.reservationMail(userEmail, returnedReservation)
+
+        return returnedReservation;
     }
 }

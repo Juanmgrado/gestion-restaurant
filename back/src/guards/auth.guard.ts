@@ -4,7 +4,9 @@ import { IPayload } from "src/auth/auth.service";
 
 @Injectable()
 export class Authguard implements CanActivate{
-  constructor(private readonly jwtService: JwtService) {}
+  constructor(
+    private readonly jwtService: JwtService
+  ) {}
 
   canActivate(context: ExecutionContext): boolean {
     const request = context.switchToHttp().getRequest();

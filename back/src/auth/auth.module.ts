@@ -7,6 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from 'src/entities/user.entity';
 import { UserService } from 'src/user/user.service';
 import { config as dotenvConfig } from 'dotenv';
+import { NodemailerService } from 'src/nodemailer/nodemailer.service';
 
 dotenvConfig();
 
@@ -20,6 +21,6 @@ dotenvConfig();
   TypeOrmModule.forFeature([User])
   ],
   controllers: [AuthController],
-  providers: [AuthService, UserService]
+  providers: [AuthService, UserService, NodemailerService]
 })
 export class AuthModule {}
