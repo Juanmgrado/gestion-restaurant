@@ -1,7 +1,8 @@
 import { IsString, IsNumber, IsNotEmpty, IsEnum, IsUrl, } from 'class-validator';
+import { Image } from 'src/entities/images.entity';
 import { IProductCategory, IProductSubcategory } from 'src/entities/product.entity';
 
-export class CreateProductDto {
+export class ProductDto {
   @IsString()
   @IsNotEmpty()
   readonly name: string;
@@ -25,7 +26,7 @@ export class CreateProductDto {
   @IsString()
   @IsUrl()
   @IsNotEmpty()
-  readonly image: string;
+  readonly images: Image[];
 
   @IsNotEmpty()
   @IsEnum(IProductSubcategory)

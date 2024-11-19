@@ -9,23 +9,18 @@ export enum ITableState{
 }
 @Entity('tables')
 export class Table {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   uuid: string;
 
   @Column({ nullable: false})
   tableNumber: number;
 
-  @Column({nullable: false})
-  capacityMax: number;
-
   @Column({ type: 'enum', enum: ITableState, default: ITableState.free })
   status: ITableState;
 
-  // Relación con reservas, una mesa puede tener varias reservas en diferentes momentos
   @OneToMany(() => Reservation, (reservation) => reservation.table)
   reservations: Reservation[];
 
-  // Relación con órdenes, una mesa puede tener múltiples órdenes mientras esté ocupada
   @ManyToOne(() => Order, (order) => order.table)
   orders: Order[];
 

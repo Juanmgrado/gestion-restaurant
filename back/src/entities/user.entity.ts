@@ -34,8 +34,7 @@ export class User {
   @Column({ default: false})
   banned: boolean;
 
-  // Relación uno a muchos con la entidad Order
-  @OneToMany(() => Reservation, (reservation) => reservation.user, { nullable: true })
+  @OneToMany(() => Reservation, (reservation) => reservation.user)
   reservations: Reservation[];
 
   @OneToOne(() => Employee, (employee) => employee.user )

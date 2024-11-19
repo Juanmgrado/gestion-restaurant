@@ -4,7 +4,7 @@ import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { ApiTags, ApiOperation, ApiResponse, ApiParam, ApiBody } from '@nestjs/swagger';
 
-@ApiTags('productos') // Etiqueta para agrupar las rutas bajo 'productos' en Swagger
+@ApiTags('productos') 
 @Controller('products')
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
@@ -21,9 +21,9 @@ export class ProductsController {
           description: 'Pizza con tomate, queso y albahaca.',
           price: 12.99,
           stock: 100,
-          category: "Platos Principales", 
-          subcategory: "Mediterranea",    
-          productDescription: "Muy sabrosa y fresca, hecha con ingredientes de calidad.",
+          category: 'Platos Principales',
+          subcategory: 'Mediterranea',
+          productDescription: 'Muy sabrosa y fresca, hecha con ingredientes de calidad.',
           image: 'https://example.com/images/pizza-margarita.jpg',
         },
       },
@@ -40,7 +40,7 @@ export class ProductsController {
   @ApiResponse({
     status: 200,
     description: 'Lista de productos obtenida exitosamente.',
-    type: [CreateProductDto], // Especifica el tipo de respuesta esperada
+    type: [CreateProductDto],
   })
   findAll() {
     return this.productsService.findAll();
@@ -51,12 +51,12 @@ export class ProductsController {
   @ApiParam({
     name: 'id',
     description: 'El ID del producto',
-    example: '123', // Ejemplo de ID
+    example: '123',
   })
   @ApiResponse({
     status: 200,
     description: 'Producto encontrado exitosamente.',
-    type: CreateProductDto, // Especifica el tipo de la respuesta
+    type: CreateProductDto, 
   })
   @ApiResponse({ status: 404, description: 'Producto no encontrado.' })
   findOne(@Param('id') id: string) {
@@ -68,7 +68,7 @@ export class ProductsController {
   @ApiParam({
     name: 'id',
     description: 'El ID del producto a actualizar',
-    example: '123', // Ejemplo de ID
+    example: '123', 
   })
   @ApiBody({
     description: 'Los datos para actualizar el producto',
@@ -96,7 +96,7 @@ export class ProductsController {
   @ApiParam({
     name: 'id',
     description: 'El ID del producto a eliminar',
-    example: '123', // Ejemplo de ID
+    example: '123', 
   })
   @ApiResponse({ status: 200, description: 'Producto eliminado exitosamente.' })
   @ApiResponse({ status: 404, description: 'Producto no encontrado.' })

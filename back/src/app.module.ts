@@ -8,6 +8,9 @@ import { UsersModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 // import { ProductsModule } from './products/products.module';
 import { TableModule } from './table/table.module';
+import { ReservationsModule } from './reservations/reservations.module';
+import { NodemailerModule } from './nodemailer/nodemailer.module';
+import { ProductsModule } from './products/products.module';
 
 @Module({
     imports: [
@@ -22,8 +25,10 @@ import { TableModule } from './table/table.module';
       }),
       UsersModule,
       AuthModule,
-      // ProductsModule,
-      TableModule
+      ProductsModule,
+      TableModule,
+      ReservationsModule,
+      NodemailerModule
   ],
   controllers: [AppController],
   providers: [AppService],
