@@ -6,11 +6,12 @@ import typeOrmCongif from './config/typeOrm.congif';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
-// import { ProductsModule } from './products/products.module';
 import { TableModule } from './table/table.module';
 import { ReservationsModule } from './reservations/reservations.module';
 import { NodemailerModule } from './nodemailer/nodemailer.module';
+
 import { ProductsModule } from './products/products.module';
+
 
 @Module({
     imports: [
@@ -25,7 +26,9 @@ import { ProductsModule } from './products/products.module';
       }),
       UsersModule,
       AuthModule,
+
       ProductsModule,
+
       TableModule,
       ReservationsModule,
       NodemailerModule

@@ -1,8 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { ProductsService } from './products.service';
-import { CreateProductDto } from './dto/create-product.dto';
-import { UpdateProductDto } from './dto/update-product.dto';
-import { ApiTags, ApiOperation, ApiResponse, ApiParam, ApiBody } from '@nestjs/swagger';
+ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+ import { ProductsService } from './products.service';
+ import { CreateProductDto } from './dto/create-product.dto';
+ import { UpdateProductDto } from './dto/update-product.dto';
+ import { ApiTags, ApiOperation, ApiResponse, ApiParam, ApiBody } from '@nestjs/swagger';
+
 
 @ApiTags('productos') 
 @Controller('products')
@@ -104,3 +105,4 @@ export class ProductsController {
     return this.productsService.remove(id);
   }
 }
+
