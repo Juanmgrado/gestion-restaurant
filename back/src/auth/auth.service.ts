@@ -22,8 +22,37 @@ export class AuthService {
     ) {}
 
     async genereteToken(payload: IPayload){
-        return  await this.jwtService.signAsync(payload)
-    }
+        
+        try{
+            const accesToken =  await this.jwtService.signAsync(payload, {expiresIn: '5m'});
+            const refreshToken =  await this.jwtService.signAsync(payload, {expiresIn: '7d'});
+
+            return { accesToken, refreshToken }
+        
+        }catch(error){
+            throw new InternalServerErrorException(`error al generar token ${error}`)
+        }
+    };
+
+    async refreshToken(refreshToken: string){
+        try{
+            const payload: IPayload = await this.jwtService.verifyAsync(refreshToken)
+            
+            const newAccesToken = await this.jwtService.signAsync({
+                uuid: payload.uuid,
+                username: payload.username,
+                email: payload.email,
+                rol: payload.rol
+            },{
+                expiresIn: '5m'
+            });
+            
+            return { newAccesToken, refreshToken}
+        
+        }catch(error){
+            throw new InternalServerErrorException('error al verificar el acceso');
+        }
+    };
 
     async signin(loginUser: LoginDto) {
         
@@ -39,17 +68,17 @@ export class AuthService {
         const chekedPassword = await bcryptjs.compare(password, foundUser.password)
             if (!chekedPassword) throw new ConflictException('Credenciales inválidas')
                 
-        const payload = {
+        const payload: IPayload = {
             uuid: foundUser.uuid,
             username: foundUser.username,
             email: foundUser.email,
             rol: foundUser.rol
         }
         
-        const token = await this.genereteToken(payload);
+        const { accesToken, refreshToken } = await this.genereteToken(payload);
 
-        return { token };
-    }
+        return { accesToken, refreshToken };
+    };
     
 
     async signup(newUser: CreateUserDto) {
@@ -58,19 +87,19 @@ export class AuthService {
             const createdUser = await this.userService.createUser(newUser)
                 if (!createdUser) throw new BadRequestException('Error al crear usuario')
 
-            const payload = {
+            const payload: IPayload = {
                 uuid: createdUser.uuid,
                 username: createdUser.username,
                 email: createdUser.email,
                 rol: createdUser.rol
             }
-        const token = await this.genereteToken(payload)
+        const {accesToken, refreshToken } = await this.genereteToken(payload)
 
-        return {token};
+        return {accesToken, refreshToken};
     
         }catch(error){
             throw new InternalServerErrorException(`Ha ocurrido un error inesperado ${error.message}`)
         }
-    }
+    };
 
 }
