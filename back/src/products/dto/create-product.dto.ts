@@ -1,4 +1,6 @@
 import { IsString, IsNumber, IsOptional, MaxLength, Min, IsPositive, IsUrl, IsEnum } from 'class-validator';
+import { Image } from 'src/entities/images.entity';
+
 import { IProductCategory, IProductSubcategory } from 'src/entities/product.entity';
 
 export class CreateProductDto {
@@ -10,8 +12,9 @@ export class CreateProductDto {
   @IsPositive()
   price: number;
   
-  @IsUrl()
-  image: string
+ 
+  images: Image[];
+
   @IsString()
   description:string
 

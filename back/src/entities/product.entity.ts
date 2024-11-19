@@ -37,12 +37,9 @@ export class Product {
   subcategory: IProductSubcategory;
 
   @Column({ nullable: false })
-  productDescription: string;
-
-  @Column()
-  stock: number;
+  description: string;
   
-  @OneToMany(() => Image, (image) => image.product, { cascade: true })
+  @OneToMany(() => Image, (image) => image.product, { eager: true })
   images: Image[];
 
   @ManyToOne(() => Order, (order) => order.products)
