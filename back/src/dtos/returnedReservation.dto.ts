@@ -6,6 +6,6 @@ export class ReturnedReservation {
     startTime: Date;
     guest: number;
     tableNumber: number;
-    user: string;
+    username: string;
     status: IStatus;
 }
