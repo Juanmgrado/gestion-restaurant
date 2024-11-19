@@ -5,6 +5,7 @@ import { ReturnedReservation } from 'src/dtos/ReturnedReservation.dto';
 import { Reservation } from 'src/entities/reservation.entity';
 import { Table } from 'src/entities/table.entity';
 import { User } from 'src/entities/user.entity';
+import { NodemailerService } from 'src/nodemailer/nodemailer.service';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -15,7 +16,8 @@ export class ReservationsService {
         @InjectRepository(Table)
         private readonly tableRespository: Repository <Table>,
         @InjectRepository(Reservation)
-        private readonly reservationsRespository: Repository <Reservation>
+        private readonly reservationsRespository: Repository <Reservation>,
+        private readonly nodemailerService: NodemailerService
     ){}
 
 
@@ -40,15 +42,18 @@ export class ReservationsService {
 
         await this.reservationsRespository.save(createdReservation);
 
-        return {
+        const returnedReservation:ReturnedReservation  = {
             reservIdentification: createdReservation.uuid,
             day: createdReservation.day,
             startTime: createdReservation.startTime,
             guest: createdReservation.guests,
             tableNumber: createdReservation.tableNumber,
             status: createdReservation.status,
-            user: foundUser.username,
+            username: foundUser.username,
         };
+        
+        await this.nodemailerService.reservationMail(foundUser.email, returnedReservation)
+        return returnedReservation;
     }
 
 }

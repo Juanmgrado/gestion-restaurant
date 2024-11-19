@@ -6,6 +6,7 @@ import { CreateUserDto } from 'src/dtos/user.dto';
 import { IRol } from 'src/entities/user.entity';
 import { LoginDto } from 'src/dtos/singin.dto';
 import { UUID } from 'typeorm/driver/mongodb/bson.typings';
+import { NodemailerService } from 'src/nodemailer/nodemailer.service';
 
 export interface IPayload{
     uuid: string,
@@ -18,7 +19,8 @@ export interface IPayload{
 export class AuthService {
     constructor(
         private readonly userService: UserService,
-        private readonly jwtService: JwtService
+        private readonly jwtService: JwtService,
+        private readonly nodemailerService: NodemailerService
     ) {}
 
     async genereteToken(payload: IPayload){
@@ -93,8 +95,10 @@ export class AuthService {
                 email: createdUser.email,
                 rol: createdUser.rol
             }
-        const {accesToken, refreshToken } = await this.genereteToken(payload)
-
+        const {accesToken, refreshToken } = await this.genereteToken(payload);
+        
+        await this.nodemailerService.registerMain(newUser.email);
+        
         return {accesToken, refreshToken};
     
         }catch(error){
