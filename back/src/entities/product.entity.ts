@@ -4,7 +4,7 @@ import { Image } from './images.entity';
 
 export enum IProductCategory {
   PlatosPrincipales = 'Platos Principales',
-  Pasteleria = 'Pastelería',
+  Pasteleria = 'Pasteleria',
   Postres = 'Postres',
   Tragos = 'Tragos',
 }
@@ -39,7 +39,7 @@ export class Product {
   @Column({ nullable: false })
   description: string;
   
-  @OneToMany(() => Image, (image) => image.product, { eager: true })
+  @OneToMany(() => Image, (image) => image.product, { cascade: true })
   images: Image[];
 
   @ManyToOne(() => Order, (order) => order.products)
