@@ -18,7 +18,7 @@ export enum IPriority{
 @Entity('orders')
 export class Order {
   @PrimaryGeneratedColumn('uuid')
-  uuiid: string;
+  id: string;
 
   @Column({ type: 'enum', enum: IStatus, default: IStatus.pending })
   status:IStatus;

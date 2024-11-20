@@ -1,102 +1,100 @@
 [
-  {
-      "name": "Paella",
-      "description": "Arroz con mariscos y azafran",
-      "price": 18.99,
-      "images": {
-        "url" : "https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731873898/pexels-nano-erdozain-120534369-28503601_rufcy8.webp"},
-      "category": "Platos Principales",
-      "subcategory": "Mediterranea",
-      "duration": "30 min"
-      
-  },
-  {
-      "name": "Sushi Variado",
-      "description": "Seleccion de nigiri y maki",
-      "price": 22.99,
-      "images": "https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731875420/pexels-valeriya-1148087_qrbwsr.jpg",
-      "category": "Platos Principales",
-      "subcategory": "Oriental",
-      "duration": "20 min"
-  },
-  {
-      "name": "Hamburguesa Gourmet",
-      "description": "Carne Angus con queso brie y cebolla caramelizada",
-      "price": 16.99,
-      "images": "https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731876111/pexels-pixabay-327158_v5kfjp.webp",
-      "category": "Platos Principales",
-      "subcategory": "Occidental",
-      "duration": "15 min"
-  },
-  {
-      "name": "Pizza Margarita",
-      "description": "Pizza clasica con mozzarella y albahaca fresca",
-      "price": 15.99,
-      "images": "https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731876437/pexels-renestrgar-16890470_ggpcuh.jpg",
-      "category": "Platos Principales",
-      "subcategory": "Occidental",
-      "duration": "25 min"
-  },
-  {
-      "name": "Ceviche",
-      "description": "Pescado marinado en citricos con cebolla y cilantro",
-      "price": 14.99,
-      "images": "https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731876488/pexels-nano-erdozain-120534369-28448395_alaary.jpg",
-      "category": "Platos Principales",
-      "subcategory": "LatinoAmericano",
-      "duration": "15 min"
-  },
-  {
-      "name": "Tacos al Pastor",
-      "description": "Tortillas con carne de cerdo y pina",
-      "price": 9.99,
-      "images": "https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731876790/pexels-roman-odintsov-4955091_qji0w6.jpg",
-      "category": "Platos Principales",
-      "subcategory": "LatinoAmericano",
-      "duration": "10 min"
-  },
-  {
-      "name": "Ramen",
-      "description": "Sopa japonesa con fideos, cerdo y huevo",
-      "price": 12.99,
-      "images": "https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731878361/pexels-valeriya-28701169_rwr9ab.jpg",
-      "category": "Platos Principales",
-      "subcategory": "Oriental",
-      "duration": "20 min"
-  },
-  {
-      "name": "Pollo Tikka Masala",
-      "description": "Pollo en salsa cremosa con especias",
-      "price": 13.99,
-      "images": "https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731876864/pexels-kanchan-prasad-239812050-27848435_zdjrsb.jpg",
-      "category": "Platos Principales",
-      "subcategory": "Indio",
-      "duration": "25 min"
-  },
-  {
-      "name": "Falafel",
-      "description": "Croquetas de garbanzos servidas con salsa de yogur",
-      "price": 8.99,
-      "images": "https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731874244/pexels-alesiakozik-6543757_py8buy.webp",
-      "category": "Platos Principales",
-      "subcategory": "Mediterranea",
-      "duration": "15 min"
-  },
-  {
-      "name": "Asado Argentino",
-      "description": "Carne de res a la parrilla estilo argentino",
-      "price": 25.99,
-      "images": "https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731876927/pexels-cristian-rojas-8279981_tru0c4.jpg",
-      "category": "Platos Principales",
-      "subcategory": "LatinoAmericano",
-      "duration": "40 min"
-  },
+    {
+        "name": "Paella",
+        "description": "Arroz con mariscos y azafran",
+        "price": 18.99,
+        "images": ["https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731873898/pexels-nano-erdozain-120534369-28503601_rufcy8.webp"],
+        "category": "Platos Principales",
+        "subcategory": "Mediterranea",
+        "duration": "30 min"
+    },
+    {
+        "name": "Sushi Variado",
+        "description": "Seleccion de nigiri y maki",
+        "price": 22.99,
+        "images": ["https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731875420/pexels-valeriya-1148087_qrbwsr.jpg"],
+        "category": "Platos Principales",
+        "subcategory": "Oriental",
+        "duration": "20 min"
+    },
+    {
+        "name": "Hamburguesa Gourmet",
+        "description": "Carne Angus con queso brie y cebolla caramelizada",
+        "price": 16.99,
+        "images": ["https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731876111/pexels-pixabay-327158_v5kfjp.webp"],
+        "category": "Platos Principales",
+        "subcategory": "Occidental",
+        "duration": "15 min"
+    },
+    {
+        "name": "Pizza Margarita",
+        "description": "Pizza clasica con mozzarella y albahaca fresca",
+        "price": 15.99,
+        "images": ["https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731876437/pexels-renestrgar-16890470_ggpcuh.jpg"],
+        "category": "Platos Principales",
+        "subcategory": "Occidental",
+        "duration": "25 min"
+    },
+    {
+        "name": "Ceviche",
+        "description": "Pescado marinado en citricos con cebolla y cilantro",
+        "price": 14.99,
+        "images": ["https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731876488/pexels-nano-erdozain-120534369-28448395_alaary.jpg"],
+        "category": "Platos Principales",
+        "subcategory": "LatinoAmericano",
+        "duration": "15 min"
+    },
+    {
+        "name": "Tacos al Pastor",
+        "description": "Tortillas con carne de cerdo y pina",
+        "price": 9.99,
+        "images": ["https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731876790/pexels-roman-odintsov-4955091_qji0w6.jpg"],
+        "category": "Platos Principales",
+        "subcategory": "LatinoAmericano",
+        "duration": "10 min"
+    },
+    {
+        "name": "Ramen",
+        "description": "Sopa japonesa con fideos, cerdo y huevo",
+        "price": 12.99,
+        "images": ["https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731878361/pexels-valeriya-28701169_rwr9ab.jpg"],
+        "category": "Platos Principales",
+        "subcategory": "Oriental",
+        "duration": "20 min"
+    },
+    {
+        "name": "Pollo Tikka Masala",
+        "description": "Pollo en salsa cremosa con especias",
+        "price": 13.99,
+        "images": ["https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731876864/pexels-kanchan-prasad-239812050-27848435_zdjrsb.jpg"],
+        "category": "Platos Principales",
+        "subcategory": "Indio",
+        "duration": "25 min"
+    },
+    {
+        "name": "Falafel",
+        "description": "Croquetas de garbanzos servidas con salsa de yogur",
+        "price": 8.99,
+        "images": ["https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731874244/pexels-alesiakozik-6543757_py8buy.webp"],
+        "category": "Platos Principales",
+        "subcategory": "Mediterranea",
+        "duration": "15 min"
+    },
+    {
+        "name": "Asado Argentino",
+        "description": "Carne de res a la parrilla estilo argentino",
+        "price": 25.99,
+        "images": ["https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731876927/pexels-cristian-rojas-8279981_tru0c4.jpg"],
+        "category": "Platos Principales",
+        "subcategory": "LatinoAmericano",
+        "duration": "40 min"
+    },
     {
         "name": "Croissant",
         "description": "Hojaldre de mantequilla al estilo frances",
         "price": 3.99,
-        "images": "https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731876933/pexels-valeriya-1510682_iv8wqn.jpg",
-        "category": "Pastelería",
+        "images": ["https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731876933/pexels-valeriya-1510682_iv8wqn.jpg"],
+        "category": "Pasteleria",
         "subcategory": "Occidental",
         "duration": "15 min"
     },
@@ -104,8 +102,8 @@
         "name": "Baklava",
         "description": "Dulce de hojaldre con nueces y miel",
         "price": 4.99,
-        "images": "https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731877150/pexels-valeriya-10038709_es6btf.jpg",
-        "category": "Pastelería",
+        "images": ["https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731877150/pexels-valeriya-10038709_es6btf.jpg"],
+        "category": "Pasteleria",
         "subcategory": "Mediterranea",
         "duration": "20 min"
     },
@@ -113,8 +111,8 @@
         "name": "Pastel de Matcha",
         "description": "Bizcocho japones de te verde matcha",
         "price": 5.99,
-        "images": "https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731877155/pexels-eva-bronzini-6833864_qsmcuz.jpg",
-        "category": "Pastelería",
+        "images": ["https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731877155/pexels-eva-bronzini-6833864_qsmcuz.jpg"],
+        "category": "Pasteleria",
         "subcategory": "Oriental",
         "duration": "20 min"
     },
@@ -122,17 +120,17 @@
         "name": "Dulce de Leche",
         "description": "Caramelo argentino suave y cremoso",
         "price": 4.99,
-        "images": "https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731877207/pexels-roman-odintsov-5845848_myao1e.jpg",
-        "category": "Pastelería",
+        "images": ["https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731877207/pexels-roman-odintsov-5845848_myao1e.jpg"],
+        "category": "Pasteleria",
         "subcategory": "LatinoAmericano",
         "duration": "10 min"
     },
     {
-        "name": "Eclair",
+        "name": "Éclair",
         "description": "Pastel frances relleno de crema y cubierto de chocolate",
         "price": 4.99,
-        "images": "https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731877237/pexels-valeriya-29380166_e02qwz.jpg",
-        "category": "Pastelería",
+        "images": ["https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731877237/pexels-valeriya-29380166_e02qwz.jpg"],
+        "category": "Pasteleria",
         "subcategory": "Occidental",
         "duration": "20 min"
     },
@@ -140,7 +138,7 @@
         "name": "Tiramisú",
         "description": "Postre italiano con cafe y mascarpone",
         "price": 7.99,
-        "images": "https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731877296/pexels-rachel-claire-6126245_hllcaq.jpg",
+        "images": ["https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731877296/pexels-rachel-claire-6126245_hllcaq.jpg"],
         "category": "Postres",
         "subcategory": "Occidental",
         "duration": "20 min"
@@ -149,7 +147,7 @@
         "name": "Mochi",
         "description": "Pastelitos de arroz japoneses",
         "price": 6.99,
-        "images": "https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731877320/pexels-nadin-sh-78971847-25315535_cmo8or.jpg",
+        "images": ["https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731877320/pexels-nadin-sh-78971847-25315535_cmo8or.jpg"],
         "category": "Postres",
         "subcategory": "Oriental",
         "duration": "15 min"
@@ -158,7 +156,7 @@
         "name": "Churros con Chocolate",
         "description": "Churros fritos con chocolate caliente",
         "price": 5.99,
-        "images": "https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731877346/pexels-leeloothefirst-5255955_nnwl3n.jpg",
+        "images": ["https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731877346/pexels-leeloothefirst-5255955_nnwl3n.jpg"],
         "category": "Postres",
         "subcategory": "LatinoAmericano",
         "duration": "15 min"
@@ -167,7 +165,7 @@
         "name": "Brownie",
         "description": "Brownie de chocolate con nueces",
         "price": 5.99,
-        "images": "https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731877360/pexels-marta-dzedyshko-1042863-2067396_ewh2ws.jpg",
+        "images": ["https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731877360/pexels-marta-dzedyshko-1042863-2067396_ewh2ws.jpg"],
         "category": "Postres",
         "subcategory": "Occidental",
         "duration": "20 min"
@@ -176,103 +174,100 @@
         "name": "Flan",
         "description": "Postre de caramelo con leche",
         "price": 4.99,
-        "images": "https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731877442/pexels-amar-19786219_olmof5.jpg",
+        "images": ["https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731877442/pexels-amar-19786219_olmof5.jpg"],
         "category": "Postres",
         "subcategory": "LatinoAmericano",
         "duration": "25 min"
     },
-      {
-          "name": "Agua",
-          "description": "Agua mineral o natural",
-          "price": 2.50,
-          "images": "https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731877467/pexels-alexazabache-3766180_ny9rh9.jpg",
-          "category": "Tragos",
-          "subcategory": "Bebidas",
-          "duration": "0 min"
-      },
-      {
-          "name": "Limonada",
-          "description": "Refrescante limonada",
-          "price": 3.50,
-          "images": "https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731878124/pexels-juliazolotova-1320997_qvy1oj.jpg",
-          "category": "Tragos",
-          "subcategory": "Bebidas",
-          "duration": "5 min"
-      },
-      {
-          "name": "Gaseosa",
-          "description": "Variedad de refrescos",
-          "price": 3.00,
-          "images": "https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731877499/pexels-alleksana-4113670_xybec4.jpg",
-          "category": "Tragos",
-          "subcategory": "Bebidas",
-          "duration": "0 min"
-      },
-      {
-          "name": "Margarita",
-          "description": "Cóctel clasico con tequila, limon y triple sec",
-          "price": 8.99,
-          "images": "https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731877549/pexels-kimvanvuuren-1590154_rcycnv.jpg",
-          "category": "Tragos",
-          "subcategory": "LatinoAmericano",
-          "duration": "5 min"
-      },
-      {
-          "name": "Martini",
-          "description": "Cóctel de ginebra o vodka con vermut",
-          "price": 9.99,
-          "images": "https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731877554/pexels-taryn-elliott-4786627_cahvfq.jpg",
-          "category": "Tragos",
-          "subcategory": "Occidental",
-          "duration": "5 min"
-      },
-      {
-          "name": "Sake",
-          "description": "Vino de arroz japones",
-          "price": 7.99,
-          "images": "https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731877582/pexels-muhamad-khoirul-anam-352732021-18198515_ov6nkm.jpg",
-          "category": "Tragos",
-          "subcategory": "Oriental",
-          "duration": "5 min"
-      },
-      {
-          "name": "Sangria",
-          "description": "Bebida espanola con vino y frutas",
-          "price": 9.99,
-          "images": "https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731877898/pexels-lina-1459338_r4qjpe.jpg",
-          "category": "Tragos",
-          "subcategory": "Mediterranea",
-          "duration": "10 min"
-      },
-      {
-          "name": "Pisco Sour",
-          "description": "Cóctel peruano de pisco, limon y clara de huevo",
-          "price": 8.99,
-          "images": "https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731877902/pexels-blue-16806422_wpffvn.jpg",
-          "category": "Tragos",
-          "subcategory": "LatinoAmericano",
-          "duration": "5 min"
-      },
-      {
-          "name": "Caipirinha",
-          "description": "Cóctel brasileño con cachaça, limon y azucar",
-          "price": 7.99,
-          "images": "https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731877949/pexels-jessica-povoa-417941005-15470502_ovlhut.jpg",
-          "category": "Tragos",
-          "subcategory": "LatinoAmericano",
-          "duration": "5 min"
-      },
-      {
-          "name": "Piña Colada",
-          "description": "Cóctel tropical con ron, coco y piña",
-          "price": 8.99,
-          "images": "https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731877996/pexels-marceloverfe-28575243_pqi9qe.jpg",
-          "category": "Tragos",
-          "subcategory": "Tropical",
-          "duration": "5 min"
-      }
-  
-  
-              
+    {
+        "name": "Agua",
+        "description": "Agua mineral o natural",
+        "price": 2.50,
+        "images": ["https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731877467/pexels-alexazabache-3766180_ny9rh9.jpg"],
+        "category": "Tragos",
+        "subcategory": "Bebidas",
+        "duration": "0 min"
+    },
+    {
+        "name": "Limonada",
+        "description": "Refrescante limonada",
+        "price": 3.50,
+        "images": ["https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731878124/pexels-juliazolotova-1320997_qvy1oj.jpg"],
+        "category": "Tragos",
+        "subcategory": "Bebidas",
+        "duration": "5 min"
+    },
+    {
+        "name": "Gaseosa",
+        "description": "Variedad de refrescos",
+        "price": 3.00,
+        "images": ["https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731877499/pexels-alleksana-4113670_xybec4.jpg"],
+        "category": "Tragos",
+        "subcategory": "Bebidas",
+        "duration": "0 min"
+    },
+    {
+        "name": "Margarita",
+        "description": "Coctel clasico con tequila, limon y triple sec",
+        "price": 8.99,
+        "images": ["https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731877549/pexels-kimvanvuuren-1590154_rcycnv.jpg"],
+        "category": "Tragos",
+        "subcategory": "LatinoAmericano",
+        "duration": "5 min"
+    },
+    {
+        "name": "Martini",
+        "description": "Coctel de ginebra o vodka con vermut",
+        "price": 9.99,
+        "images": ["https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731877554/pexels-taryn-elliott-4786627_cahvfq.jpg"],
+        "category": "Tragos",
+        "subcategory": "Occidental",
+        "duration": "5 min"
+    },
+    {
+        "name": "Sake",
+        "description": "Vino de arroz japones",
+        "price": 7.99,
+        "images": ["https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731877582/pexels-muhamad-khoirul-anam-352732021-18198515_ov6nkm.jpg"],
+        "category": "Tragos",
+        "subcategory": "Oriental",
+        "duration": "5 min"
+    },
+    {
+        "name": "Sangria",
+        "description": "Bebida espanola con vino y frutas",
+        "price": 9.99,
+        "images": ["https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731877898/pexels-lina-1459338_r4qjpe.jpg"],
+        "category": "Tragos",
+        "subcategory": "Mediterranea",
+        "duration": "10 min"
+    },
+    {
+        "name": "Pisco Sour",
+        "description": "Coctel peruano de pisco, limon y clara de huevo",
+        "price": 8.99,
+        "images": ["https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731877902/pexels-blue-16806422_wpffvn.jpg"],
+        "category": "Tragos",
+        "subcategory": "LatinoAmericano",
+        "duration": "5 min"
+    },
+    {
+        "name": "Caipirinha",
+        "description": "Coctel brasileño con cachaça, limon y azucar",
+        "price": 7.99,
+        "images": ["https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731877949/pexels-jessica-povoa-417941005-15470502_ovlhut.jpg"],
+        "category": "Tragos",
+        "subcategory": "LatinoAmericano",
+        "duration": "5 min"
+    },
+    {
+        "name": "Piña Colada",
+        "description": "Coctel tropical con ron, coco y piña",
+        "price": 8.99,
+        "images": ["https://res.cloudinary.com/dcxlhj8h3/image/upload/v1731877996/pexels-marceloverfe-28575243_pqi9qe.jpg"],
+        "category": "Tragos",
+        "subcategory": "Tropical",
+        "duration": "5 min"
+    }
           ]
     
