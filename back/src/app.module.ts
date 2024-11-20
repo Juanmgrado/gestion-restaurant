@@ -11,13 +11,15 @@ import { ReservationsModule } from './reservations/reservations.module';
 import { NodemailerModule } from './nodemailer/nodemailer.module';
 
 import { ProductsModule } from './products/products.module';
+import { CloudinaryModule } from './cloudinary/cloudinary.module';
+import { clodinaryConfig } from './config/cloudinary.config';
 
 
 @Module({
     imports: [
       ConfigModule.forRoot({
         isGlobal: true,
-        load: [typeOrmCongif],
+        load: [typeOrmCongif, clodinaryConfig],
       }),
       TypeOrmModule.forRootAsync({
         inject: [ConfigService],
@@ -31,7 +33,8 @@ import { ProductsModule } from './products/products.module';
 
       TableModule,
       ReservationsModule,
-      NodemailerModule
+      NodemailerModule,
+      CloudinaryModule
   ],
   controllers: [AppController],
   providers: [AppService],
