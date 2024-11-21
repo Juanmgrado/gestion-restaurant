@@ -5,11 +5,11 @@
  import { Product } from 'src/entities/product.entity';
 import { CloudinaryModule } from 'src/cloudinary/cloudinary.module';
 import { Image } from 'src/entities/images.entity';
-import { ImagesModule } from './image.module';
+// import { ImagesModule } from './image.module';
 
  @Module({
-   imports: [TypeOrmModule.forFeature([Product,]),
-   CloudinaryModule,ImagesModule],
+   imports: [TypeOrmModule.forFeature([Product, Image]),
+   CloudinaryModule],
    controllers: [ProductsController],
    providers: [ProductsService],
  })
