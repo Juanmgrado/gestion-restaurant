@@ -1,22 +1,42 @@
-import { IsString, IsNotEmpty, IsEnum } from 'class-validator';
+import { IsString, IsNotEmpty, IsEnum, Matches, IsEmail, Length, IsStrongPassword } from 'class-validator';
+import { IRol } from 'src/entities/user.entity';
 
-export enum UserRole {
-  MESERO = 'mesero',
-  COCINERO = 'cocinero',
-  ADMIN = 'admin',
-  CLIENTE = 'cliente',
-}
 
 export class CreateUserDto {
+  
   @IsString()
   @IsNotEmpty()
-  readonly nombre: string;
+  @Length(3, 40)
+  @Matches(/^[a-zA-Z\s]+$/)  
+  readonly fullname: string;
+  
 
+  @IsNotEmpty()
   @IsString()
+  @Length(3,15)
+  @Matches(/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+$/)
+  readonly username: string;
+  
+  @IsEmail()
+  @IsNotEmpty()
+  @Length(10,40)
+  readonly email: string;
+
+  @IsStrongPassword({
+    minLength: 8,
+    minUppercase: 1,
+    minNumbers: 1,
+    minSymbols: 1, 
+  })
   @IsNotEmpty()
   readonly password: string;
 
-  @IsEnum(UserRole)
+  @IsStrongPassword({
+    minLength: 8,
+    minUppercase: 1,
+    minNumbers: 1,
+    minSymbols: 1, 
+  })
   @IsNotEmpty()
-  readonly rol: UserRole;
+  readonly repeatpassword: string;
 }
