@@ -55,4 +55,8 @@ export class UserService {
             throw new InternalServerErrorException(`Error en el servidor ${error.message}`);
         }
     }
+
+    async getAllUsers(){
+        return await this.userRepository.find()
+    }
 } 
