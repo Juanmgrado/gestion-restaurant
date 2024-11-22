@@ -13,6 +13,7 @@ import { NodemailerModule } from './nodemailer/nodemailer.module';
 import { ProductsModule } from './products/products.module';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import { clodinaryConfig } from './config/cloudinary.config';
+import { PedidoModule } from './pedidos/pedidos.module';
 
 
 @Module({
@@ -30,7 +31,7 @@ import { clodinaryConfig } from './config/cloudinary.config';
       AuthModule,
 
       ProductsModule,
-
+      PedidoModule,
       TableModule,
       ReservationsModule,
       NodemailerModule,

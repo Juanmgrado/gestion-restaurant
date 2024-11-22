@@ -1,6 +1,7 @@
 import { Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { User } from "./user.entity";
 import { Order } from "./order.entity";
+import { Pedido } from "./pedidos";
 
 export enum ICargo{
     chef = 'cheff',
@@ -11,7 +12,7 @@ export enum ICargo{
 @Entity('employees')
 export class Employee{
     @PrimaryGeneratedColumn('uuid')
-    uuid: string;
+    id: string;
 
     @Column({nullable: false, unique: true})
     numberID: number;
@@ -24,4 +25,10 @@ export class Employee{
 
     @OneToMany(() => Order, (order) => order.employee)
     orders?: Order[];
+
+    @OneToMany(()=> Pedido , (pedido) => pedido.mozo )
+    pedidosMozo: Pedido[]
+    
+    @OneToMany(() => Pedido, (pedido) => pedido.chef)
+    pedidosChef: Pedido[]
 }
