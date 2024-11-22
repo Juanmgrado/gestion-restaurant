@@ -8,11 +8,12 @@
     "allowSyntheticDefaultImports": true,
     "target": "ES2021",
     "sourceMap": true,
-    "outDir": "./dist",
-    "baseUrl": "./",
+    "outDir": "./dist",  
+    "rootDir": "./src",  
+    "baseUrl": "./",     
     "paths": {
-      "src/*": ["./src/*"], 
-      "*": ["node_modules/*", "src/*"] 
+      "src/*": ["src/*"],  
+      "*": ["node_modules/*", "src/*"]  
     },
     "incremental": true,
     "skipLibCheck": true,
@@ -22,5 +23,11 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "resolveJsonModule": true
-  }
+  },
+  "include": [
+    "src/**/*.ts"  
+  ],
+  "exclude": [
+    "node_modules" 
+  ]
 }
