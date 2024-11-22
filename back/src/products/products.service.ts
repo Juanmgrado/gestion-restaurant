@@ -47,16 +47,16 @@ import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
               images = await Promise.all(
                 images.map(async (url) => {
                   if (typeof url === 'string') {
-                    // Verificar si la URL ya existe en la base de datos
+                  
                     const existingImage = await this.imageRepository.findOne({
                       where: { url },
                     });
     
                     if (existingImage) {
-                      // Si la imagen ya existe, reutilizamos la URL
+                    
                       return existingImage;
                     } else {
-                      // Si la imagen no existe, la subimos a Cloudinary
+                   
                       const imageUrl = await this.cloudinaryService.uploadImageFromUrl(url);
                       const newImage = new Image();
                       newImage.url = imageUrl;
