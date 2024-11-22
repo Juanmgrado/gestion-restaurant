@@ -1,7 +1,7 @@
 import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateReservationDto } from 'src/dtos/reservation.dto';
-import { ReturnedReservation } from 'src/dtos/ReturnedReservation.dto';
+import { ReturnedReservation } from '../dtos/ReturnedReservation.dto';
 import { Reservation } from 'src/entities/reservation.entity';
 import { Table } from 'src/entities/table.entity';
 import { User } from 'src/entities/user.entity';
