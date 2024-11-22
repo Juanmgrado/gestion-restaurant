@@ -1,6 +1,6 @@
 import { IsDate, IsNotEmpty, IsNumber, Min, Max } from 'class-validator';
 import { Transform } from 'class-transformer'; 
-import { IsTimeInRange } from 'src/decorators/timeMatch.decorator';import { IsDateNotPassed } from 'src/decorators/dayCheck.decorator';
+import { IsTimeInRange } from '../decorators/timeMatch.decorator';import { IsDateNotPassed } from '../decorators/dayCheck.decorator';
   
 export class CreateReservationDto {
   
