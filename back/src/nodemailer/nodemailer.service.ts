@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { transporter } from 'src/config/nodemailer.config';
-import { ReturnedReservation } from 'src/dtos/ReturnedReservation.dto';
+import { ReturnedReservation } from '../dtos/returnedReservationType';
 
 @Injectable()
 export class NodemailerService {

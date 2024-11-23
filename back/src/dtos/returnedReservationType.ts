@@ -1,4 +1,4 @@
-import { IStatus } from "src/entities/reservation.entity";
+import { IStatus } from "../entities/reservation.entity";
 
 export class ReturnedReservation {
     reservIdentification: string;
