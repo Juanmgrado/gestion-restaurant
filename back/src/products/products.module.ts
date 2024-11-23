@@ -1,15 +1,14 @@
- import { Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
  import { ProductsService } from './products.service';
  import { ProductsController } from './products.controller';
  import { TypeOrmModule } from '@nestjs/typeorm';
  import { Product } from 'src/entities/product.entity';
 import { CloudinaryModule } from 'src/cloudinary/cloudinary.module';
-import { Image } from 'src/entities/images.entity';
-// import { ImagesModule } from './image.module';
+import { ImagesModule } from './image.module';
 
  @Module({
-   imports: [TypeOrmModule.forFeature([Product, Image]),
-   CloudinaryModule],
+   imports: [TypeOrmModule.forFeature([Product,]),
+   CloudinaryModule,ImagesModule],
    controllers: [ProductsController],
    providers: [ProductsService],
  })
