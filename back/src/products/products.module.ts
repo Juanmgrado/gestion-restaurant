@@ -4,7 +4,6 @@
  import { TypeOrmModule } from '@nestjs/typeorm';
  import { Product } from 'src/entities/product.entity';
 import { CloudinaryModule } from 'src/cloudinary/cloudinary.module';
-import { Image } from 'src/entities/images.entity';
 import { ImagesModule } from './image.module';
 
  @Module({
