@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CrearPedidoDto } from 'src/dtos/pedidos.dto';
-import { Pedido } from 'src/entities/pedidos';
+import { Pedido } from 'src/entities/pedidos.entity';
 import { Repository } from 'typeorm';
 
 

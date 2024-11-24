@@ -1,7 +1,7 @@
 import { Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { User } from "./user.entity";
 import { Order } from "./order.entity";
-import { Pedido } from "./pedidos";
+import { Pedido } from "./pedidos.entity";
 
 export enum ICargo{
     chef = 'cheff',
