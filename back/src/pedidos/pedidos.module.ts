@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Pedido } from 'src/entities/pedidos';
+import { Pedido } from 'src/entities/pedidos.entity';
 import { PedidoController } from './pedidos.controller';
 import { PedidoService } from './pedidos.service';
 
