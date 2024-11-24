@@ -1,6 +1,5 @@
-import { Body, Controller, HttpCode, Put } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, Put } from '@nestjs/common';
 import { UserService } from './user.service';
-import { CreateUserDto } from 'src/dtos/user.dto';
 
 @Controller('user')
 export class UserController {
@@ -8,4 +7,9 @@ export class UserController {
         private readonly userService: UserService
     ){}
 
+    @Get()
+    @HttpCode(200)
+    async getAllUsers(){
+        return this.userService.getAllUsers()
+    }
 }
