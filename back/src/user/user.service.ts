@@ -34,6 +34,7 @@ export class UserService {
             return { 
                 uuid: createdUser.uuid,
                 username: createdUser.username,
+                fullname: createdUser.fullname,
                 email: createdUser.email,
                 rol: createdUser.rol
             }
@@ -59,4 +60,21 @@ export class UserService {
     async getAllUsers(){
         return await this.userRepository.find()
     }
+    async findUserById(id: string): Promise<ReturnedUser | null> {
+        try {
+            const user = await this.userRepository.findOne({ where: { uuid: id } });
+            if (!user) throw new ConflictException('Usuario no encontrado.');
+    
+            return {
+                uuid: user.uuid,
+                fullname: user.fullname,
+                username: user.username,
+                email: user.email,
+                rol: user.rol,
+            };
+        } catch (error) {
+            throw new InternalServerErrorException(`Error en el servidor: ${error.message}`);
+        }
+    }
+    
 } 
