@@ -27,5 +27,11 @@ export class TableController {
         return await this.tableService.addTable(newTable)
     }
 
+    @Get('freeTables')
+    @HttpCode(200)
+    async availableTables(@Body() date: Date){
+        
+        return this.tableService.availableTables(date)
+    }
 }
-
+// asdasdasdasdasd

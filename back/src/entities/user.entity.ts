@@ -2,6 +2,7 @@ import { Entity, Column, PrimaryGeneratedColumn, OneToMany, OneToOne } from 'typ
 import { Order } from './order.entity';
 import { Reservation } from './reservation.entity';
 import { Employee } from './employees.entity';
+import { Payment } from './payment.entity';
 
 export enum IRol{
   user = 'user',
@@ -34,6 +35,9 @@ export class User {
   @Column({ default: false})
   banned: boolean;
 
+  @OneToMany(() => Payment, (payment) => payment.user)
+  payments: []
+  
   @OneToMany(() => Reservation, (reservation) => reservation.user)
   reservations: Reservation[];
 

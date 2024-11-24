@@ -7,6 +7,7 @@ export enum ITableState{
   ocupied = 'ocupied',
   reserved = 'reserved'
 }
+
 @Entity('tables')
 export class Table {
   @PrimaryGeneratedColumn('uuid')
