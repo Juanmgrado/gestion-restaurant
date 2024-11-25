@@ -2,7 +2,7 @@ import { ConflictException, Injectable, NotFoundException } from '@nestjs/common
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateReservationDto } from 'src/dtos/reservation.dto';
 import { ReturnedReservation } from '../dtos/returnedReservationType';
-import { Reservation } from 'src/entities/reservation.entity';
+import { IStatus, Reservation } from 'src/entities/reservation.entity';
 import { Table } from 'src/entities/table.entity';
 import { User } from 'src/entities/user.entity';
 import { NodemailerService } from 'src/nodemailer/nodemailer.service';
@@ -54,6 +54,18 @@ export class ReservationsService {
         
         await this.nodemailerService.reservationMail(foundUser.email, returnedReservation)
         return returnedReservation;
+    }
+
+    async actualiceStatus(reservationUuid: string, newStatus: IStatus): Promise< string | null >{
+
+        const foundReservations = await this.reservationsRespository.findOneBy({uuid: reservationUuid})
+            if (!foundReservations) throw new NotFoundException ('Reserva no encontrada')
+        
+        foundReservations.status = newStatus;
+
+        await this.reservationsRespository.save(foundReservations)
+
+        return 'Eestado actualizado con éxito'
     }
 
 }

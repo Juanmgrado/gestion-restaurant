@@ -6,18 +6,17 @@ import { config as dotenvConfig } from 'dotenv';
 dotenvConfig();
 const config = {
   type: 'postgres',
-  host: parseInt(process.env.DB_HOST),
-  port: parseInt(process.env.DB_PORT),
+  host: (process.env.DB_HOST),
+  port: parseInt(process.env.DB_PORT, 10),
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
-  dataBase: process.env.DB_NAME,
+  database: process.env.DB_NAME,
   synchronize: true,
   dropSchema: true,
   logging: true,
   entities: [__dirname, '**/*.entity.js'],
-
 };
 
-export default registerAs('typeOrm', () => config,);
+export default registerAs('typeOrm', () => config);
 
 export const conectionSource = new DataSource(config as DataSourceOptions);
