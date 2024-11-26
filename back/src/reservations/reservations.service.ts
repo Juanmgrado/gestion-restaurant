@@ -36,20 +36,22 @@ export class ReservationsService {
             startTime,
             guests,
             tableNumber,
-            table: foundTable,
-            user: foundUser,
+            table: foundTable
         });
 
         await this.reservationsRespository.save(createdReservation);
+        
+        createdReservation.user = foundUser;
+            await this.reservationsRespository.save(createdReservation)
 
         const returnedReservation:ReturnedReservation  = {
             reservIdentification: createdReservation.uuid,
             day: createdReservation.day,
             startTime: createdReservation.startTime,
             guest: createdReservation.guests,
+            reservationWorth: createdReservation.reservationWorth,
             tableNumber: createdReservation.tableNumber,
-            status: createdReservation.status,
-            username: foundUser.username,
+            status: createdReservation.status
         };
         
         await this.nodemailerService.reservationMail(foundUser.email, returnedReservation)
@@ -65,7 +67,34 @@ export class ReservationsService {
 
         await this.reservationsRespository.save(foundReservations)
 
-        return 'Eestado actualizado con éxito'
+        return 'Estado actualizado con éxito'
     }
 
+    async getUserReservations(userUuid: string): Promise <ReturnedReservation[] | null>{
+
+        try{
+            const foundUser = await this.userRepository.findOne({
+                where: { uuid: userUuid },
+                relations: ['reservations'],
+             });
+                if (!foundUser) throw new NotFoundException('Usuario no encontrado')
+
+            const returnedReservations: ReturnedReservation[] = foundUser.reservations.map((reservation) => {
+                return {
+                    reservIdentification: reservation.uuid,
+                    day: reservation.day,
+                    startTime: reservation.startTime,
+                    guest: reservation.guests,
+                    reservationWorth: reservation.reservationWorth,
+                    tableNumber: reservation.tableNumber,
+                    status: reservation.status,
+                    } as ReturnedReservation;
+                });
+            
+            return returnedReservations
+        
+        }catch(error){
+            throw new ConflictException('Error en el servidor')
+        }
+    }
 }

@@ -1,6 +1,6 @@
-import { ConflictException, Injectable, InternalServerErrorException } from '@nestjs/common';
+import { ConflictException, Injectable, InternalServerErrorException, NotFoundException, ParseUUIDPipe } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateUserDto } from 'src/dtos/user.dto';
+import { CreateUserDto } from 'src/dtos/createUser.dto';
 import { User } from 'src/entities/user.entity';
 import * as bcryptjs from 'bcryptjs'
 import { Repository } from 'typeorm';
@@ -56,7 +56,23 @@ export class UserService {
         }
     }
 
-    async getAllUsers(){
+    async getAllUsers(): Promise <User[]>{
         return await this.userRepository.find()
+    }
+
+    async deleteUser(userUuid: string): Promise <string | void >{
+        
+        try{
+            const foundUser = await this.userRepository.findOneBy({uuid: userUuid})
+                if (!foundUser) throw new NotFoundException('Usuario no encontrado')
+        
+            foundUser.isActive = false;
+            
+            return 'Usuario eliminado con éxito'
+        
+        }catch(error){
+            throw new InternalServerErrorException('Error en el servidor')
+        
+        }             
     }
 } 
