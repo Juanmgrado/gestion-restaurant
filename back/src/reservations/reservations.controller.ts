@@ -12,7 +12,7 @@ export class ReservationsController {
     ){}
 
     @Post('booking')
-    @UseGuards(Authguard)
+
     @HttpCode(201)
     async createReservation(
         @Body()newReservation: CreateReservationDto,

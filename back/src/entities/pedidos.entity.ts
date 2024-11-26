@@ -7,6 +7,7 @@ import {
     UpdateDateColumn,
   } from 'typeorm';
 import { Employee } from './employees.entity';
+import { Table } from './table.entity';
   
   @Entity('pedidos')
   export class Pedido {
@@ -18,6 +19,7 @@ import { Employee } from './employees.entity';
   
     @Column({ type: 'int' })
     cantidad: number;
+    
   
     @Column({ type: 'text', nullable: true })
     notasAdicionales: string;
@@ -39,5 +41,8 @@ import { Employee } from './employees.entity';
   
     @UpdateDateColumn()
     actualizadoEn: Date;
+
+    @ManyToOne(() => Table, (table) => table.pedido)
+    table: Table;
   }
   
