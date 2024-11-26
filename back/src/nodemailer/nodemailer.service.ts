@@ -47,7 +47,7 @@ export class NodemailerService {
                             <h2>¡Gracias por registrarte en nuestra app!</h2>
                             <p>Esperamos que disfrutes de nuestro acogedor restaurante y de nuestros exquisitos platos, hechos especialmente para ti. Nos encantaría que vivas una experiencia única con nosotros. ¡Te esperamos pronto!</p>
                             <div class="footer">
-                                <p>El equipo de [Nombre de tu restaurante]</p>
+                                <p>El equipo de Le Gourmet Exquis</p>
                             </div>
                         </div>
                     </body>

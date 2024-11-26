@@ -1,6 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne } from 'typeorm';
 import { Reservation } from './reservation.entity';
 import { Order } from './order.entity';
+import { Pedido } from './pedidos.entity';
 
 export enum ITableState{
   free = 'free',
@@ -22,7 +23,7 @@ export class Table {
   @OneToMany(() => Reservation, (reservation) => reservation.table)
   reservations: Reservation[];
 
-  @ManyToOne(() => Order, (order) => order.table)
-  orders: Order[];
+  @ManyToOne(() => Pedido, (pedido) => pedido.table)
+  pedido: Pedido[];
 
 }

@@ -45,7 +45,7 @@ export class Order {
   @OneToMany(() => Employee, (employee) =>employee.orders, { nullable: false })
   employee: Employee;
 
-  @OneToMany(() => Table, (table) => table.orders, { nullable: true })
+  @OneToMany(() => Table, (table) => table.pedido, { nullable: true })
   table: Table;
 
   @OneToMany(() => Product, (products) => products.order)
