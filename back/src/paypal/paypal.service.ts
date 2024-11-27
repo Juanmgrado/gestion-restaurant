@@ -1,8 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import * as paypal from '@paypal/checkout-server-sdk';
 import { HttpService } from '@nestjs/axios'
 import { IStatus, Reservation } from 'src/entities/reservation.entity';
-import { Repository } from 'typeorm';
+import { DataSource, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import client from 'src/config/pyapal.config';
 import { Payment } from 'src/entities/payment.entity';
@@ -20,7 +20,8 @@ export class PaypalService {
     @InjectRepository(Payment)
     private readonly paymentRepository: Repository<Payment>,
     private readonly reservationsService: ReservationsService,
-    private readonly nodemailerService: NodemailerService
+    private readonly nodemailerService: NodemailerService,
+    private readonly dataSource: DataSource
   ) {
     this.client = client;
   }
@@ -83,56 +84,59 @@ export class PaypalService {
     request.requestBody({
       payer_id: payerId,
     });
-
-    const order = await this.client.execute(request);
-    const founPayment = await this.paymentRepository.findOne({
-      where: { id: paymentId },
-      relations: ['reservation'],
-    });
-
-    if (!founPayment) throw new NotFoundException('Orden no hallada');
-
-    const reservation = await this.reservationRepository.findOne({
-      where: { uuid: founPayment.reservation.uuid },
-      relations: ['payment', 'user'],
-    });
-    if (!reservation) throw new NotFoundException('Reserva no encontrada');
-
-    try {
-      if (order.result.status === 'COMPLETED') {
-        founPayment.total =
-          order.result.purchase_units[0].payments.captures[0].amount.value;
-        founPayment.currency =
-          order.result.purchase_units[0].payments.captures[0].amount.currency_code;
-        founPayment.payerEmail =
-          order.result.payment_source.paypal.email_address;
-        founPayment.status =
-          order.result.purchase_units[0].payments.captures[0].status;
-        founPayment.payerId = order.result.payer.payer_id;
-
-        await this.reservationsService.actualiceStatus(reservation.uuid, IStatus.active)
-        
-        founPayment.user = reservation.user
-        await this.paymentRepository.save(founPayment);
-        await this.nodemailerService.reservActiveMail(reservation.user.email, founPayment.id)
-
-            return {
+  
+    return await this.dataSource.transaction(async (manager) => {
+      const order = await this.client.execute(request);
+  
+      const founPayment = await manager.getRepository(Payment).findOne({
+        where: { id: paymentId },
+        relations: ['reservation'],
+      });
+  
+      if (!founPayment) throw new NotFoundException('Orden no hallada');
+  
+      const reservation = await manager.getRepository(Reservation).findOne({
+        where: { uuid: founPayment.reservation.uuid },
+        relations: ['payment', 'user'],
+      });
+      if (!reservation) throw new NotFoundException('Reserva no encontrada');
+  
+      try {
+        if (order.result.status === 'COMPLETED') {
+          founPayment.total =
+            order.result.purchase_units[0].payments.captures[0].amount.value;
+          founPayment.currency =
+            order.result.purchase_units[0].payments.captures[0].amount.currency_code;
+          founPayment.payerEmail =
+            order.result.payment_source.paypal.email_address;
+          founPayment.status =
+            order.result.purchase_units[0].payments.captures[0].status;
+          founPayment.payerId = order.result.payer.payer_id;
+  
+          await manager.getRepository(Reservation).update(reservation.uuid, { status: IStatus.active });
+  
+          founPayment.user = reservation.user;
+          await manager.getRepository(Payment).save(founPayment);
+          await this.nodemailerService.reservActiveMail(reservation.user.email, founPayment.id);
+  
+          return {
             message: 'Pago capturado y registro creado.',
             paymentStatus: founPayment.status,
-            };
+          };
         }
-
-      if (order.result.status === 'DECLINED') {
-        founPayment.status = 'DECLINED';
-
-        await this.nodemailerService.paymentReservFailMail(reservation.user.email, reservation.uuid)
-        
-            return {
+  
+        if (order.result.status === 'DECLINED') {
+          founPayment.status = 'DECLINED';
+  
+          await this.nodemailerService.paymentReservFailMail(reservation.user.email, reservation.uuid);
+  
+          return {
             message: 'Pago rechazado',
-            };
+          };
         }
-    } catch (err) {
-      throw new Error(`Error al capturar la orden de PayPal: ${err.message}`);
-    }
+      } catch (err) {
+        throw new InternalServerErrorException(`Error al capturar la orden de PayPal: ${err.message}`);
+      }
+    });
   }
-}
+}  
