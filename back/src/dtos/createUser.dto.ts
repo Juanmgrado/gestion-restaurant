@@ -22,22 +22,12 @@ export class CreateUserDto {
   @Length(10,40)
   readonly email: string;
 
-  @IsStrongPassword({
-    minLength: 8,
-    minUppercase: 1,
-    minNumbers: 1,
-    minSymbols: 1, 
-  })
-  @IsNotEmpty()
+ 
+ 
   readonly password: string;
 
-  @IsStrongPassword({
-    minLength: 8,
-    minUppercase: 1,
-    minNumbers: 1,
-    minSymbols: 1, 
-  })
-  @Validate(MatchPassword, ['password'])
-  @IsNotEmpty()
+
+ 
+  
   readonly repeatpassword: string;
 }

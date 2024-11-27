@@ -16,6 +16,7 @@ export class TableService {
         private readonly reservationRepository: Repository <Reservation>
     ){}
 
+    
     async tableSeeder(){
         
 
@@ -26,7 +27,6 @@ export class TableService {
             .insert()
             .into(Table)
             .values({
-                uuid: table.uuid,
                 tableNumber: table.tableNumber})
             .execute()
         })
