@@ -5,7 +5,7 @@ export class ReturnedReservation {
     day: Date;
     startTime: Date;
     guest: number;
+    reservationWorth: number;
     tableNumber: number;
-    username: string;
     status: IStatus;
 }

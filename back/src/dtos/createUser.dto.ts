@@ -1,4 +1,5 @@
-import { IsString, IsNotEmpty, IsEnum, Matches, IsEmail, Length, IsStrongPassword } from 'class-validator';
+import { IsString, IsNotEmpty, IsEnum, Matches, IsEmail, Length, IsStrongPassword, Validate } from 'class-validator';
+import { MatchPassword } from 'src/decorators/passwordsMatch.decorator';
 import { IRol } from 'src/entities/user.entity';
 
 
@@ -36,6 +37,7 @@ export class CreateUserDto {
     minNumbers: 1,
     minSymbols: 1, 
   })
+  @Validate(MatchPassword, ['password'])
   @IsNotEmpty()
   readonly repeatpassword: string;
 }

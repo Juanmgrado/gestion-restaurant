@@ -2,7 +2,7 @@ import { BadRequestException, ConflictException, Injectable, InternalServerError
 import { UserService } from 'src/user/user.service';
 import * as bcryptjs from 'bcryptjs'
 import { JwtService } from '@nestjs/jwt';
-import { CreateUserDto } from 'src/dtos/user.dto';
+import { CreateUserDto } from 'src/dtos/createUser.dto';
 import { IRol } from 'src/entities/user.entity';
 import { LoginDto } from 'src/dtos/singin.dto';
 import { UUID } from 'typeorm/driver/mongodb/bson.typings';
@@ -64,9 +64,12 @@ export class AuthService {
         email
             ? await this.userService.findUserByField('email', email)
             : await this.userService.findUserByField('username', username);
-
             if (!foundUser) throw new ConflictException('Credenciales inválidas');
-    
+            
+            if (foundUser.isActive === false) {
+                foundUser.isActive = true
+            }
+        
         const chekedPassword = await bcryptjs.compare(password, foundUser.password)
             if (!chekedPassword) throw new ConflictException('Credenciales inválidas')
                 

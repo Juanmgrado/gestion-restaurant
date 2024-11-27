@@ -5,28 +5,25 @@ import {
     OneToOne,
     JoinColumn,
     ManyToOne,
+    PrimaryColumn,
   } from 'typeorm';
   import { ApiProperty } from '@nestjs/swagger';
   import { Reservation } from './reservation.entity';
   import { User } from './user.entity';
   
   
-  @Entity('Payments')
+  @Entity('payments')
   export class Payment {
     @ApiProperty({
       example: 'e5bdda8e-3da4-4a5f-b9ea-6239c73222f4',
       description: 'UUID del pago',
     })
-    @PrimaryGeneratedColumn('uuid')
-    uuid: string;
+    @PrimaryColumn()
+    id: string;
     
     @ApiProperty({ example: '2024-05-08', description: 'fecha en la que se realizó el pago' })
-    @Column()
+    @Column({ type: 'timestamp', default: () => 'current_timestamp' })
     date: Date;
-  
-    @ApiProperty({ example: 'ID:34323', description: 'ID de la orden de pago generada por paypal' })
-    @Column({nullable: true})
-    orderId: string;
   
     @ApiProperty({ example: 'USD', description: 'Moneda en la cual se hizo el pago' })
     @ApiProperty({
@@ -55,7 +52,7 @@ import {
       example: 100.00,
       description: 'Total del pago realizado',
   })
-    @Column('decimal', { precision: 10, scale: 2 })
+    @Column('decimal', {nullable: true, precision: 10, scale: 2 })
     total: number;
   
     @OneToOne(()=> Reservation, (reservation) => reservation.payment)

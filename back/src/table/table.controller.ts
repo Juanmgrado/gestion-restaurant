@@ -18,7 +18,7 @@ export class TableController {
     }
 
     @Post('addTable')
-    @UseGuards(Authguard, RolesGuard)
+    @UseGuards(RolesGuard)
     @Roles(IRol.manager)
     @HttpCode(201)
     async addTable(
@@ -28,6 +28,7 @@ export class TableController {
     }
 
     @Get('freeTables')
+    @UseGuards(Authguard)
     @HttpCode(200)
     async availableTables(@Body() date: Date){
         
