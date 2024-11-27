@@ -16,9 +16,9 @@ export class CreateReservationDto {
   @IsTimeInRange({ message: 'La hora de la reserva debe ser entre las 13:00 y las 23:00' }) 
   readonly startTime: Date;
 
-  @IsNumber()
-  @IsNotEmpty()
-  readonly tableNumber: number;
+ 
+ 
+  readonly tableNumber?: number;
   
   @IsNumber()
   @IsNotEmpty({ message: 'Introduzca la cantidad de comensales' })
