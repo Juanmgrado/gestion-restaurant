@@ -11,6 +11,9 @@ export class CrearPedidoDto {
   cantidad: number;
 
   @IsString()
+  tableNumber: string
+
+  @IsString()
   @IsOptional()
   notasAdicionales?: string;
 
@@ -23,6 +26,7 @@ export class ActualizarEstadoPedidoDto {
   @IsEnum(['pendiente', 'en_proceso', 'completado'])
   estado: 'pendiente' | 'en_proceso' | 'completado';
 
+  tableNumber: number
   @IsString()
   chefId: string
 }

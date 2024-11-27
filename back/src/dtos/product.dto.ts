@@ -28,6 +28,9 @@ export class ProductDto {
   @IsNotEmpty()
   readonly images: Image[];
 
+  @IsString()
+  readonly duration:string
+
   @IsNotEmpty()
   @IsEnum(IProductSubcategory)
   readonly subcategory: IProductSubcategory;
