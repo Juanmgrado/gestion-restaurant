@@ -36,7 +36,10 @@ export class UserService {
                 username: createdUser.username,
                 fullname: createdUser.fullname,
                 email: createdUser.email,
-                rol: createdUser.rol
+                rol: createdUser.rol,
+                banned: createdUser.banned,
+                isActive: createdUser. isActive
+
             }
 
         }catch(error){
@@ -87,6 +90,8 @@ export class UserService {
                 username: user.username,
                 email: user.email,
                 rol: user.rol,
+                isActive: user.isActive,
+                banned: user.banned
             };
         } catch (error) {
             throw new InternalServerErrorException(`Error en el servidor: ${error.message}`);
