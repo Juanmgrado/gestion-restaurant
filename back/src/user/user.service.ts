@@ -47,7 +47,7 @@ export class UserService {
         
         try {
             const foundUser = await this.userRepository.findOne({ where: { [field]: value } });
-                if (!foundUser) throw new ConflictException("Credenciales inválidas");
+                if (!foundUser) throw new NotFoundException("Credenciales inválidas");
             
             return foundUser;
         
