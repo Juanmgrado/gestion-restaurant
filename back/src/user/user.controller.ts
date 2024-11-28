@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, NotFoundException, ParseUUIDPipe, Put, Query, UseGuards } from '@nestjs/common';
+import { BadRequestException, Body, ConflictException, Controller, Get, HttpCode, NotFoundException, ParseUUIDPipe, Put, Query, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
 import { RolesGuard } from 'src/guards/rol.guard';
 import { Roles } from 'src/decorators/rol.decorator';
@@ -6,6 +6,7 @@ import { IRol, User } from 'src/entities/user.entity';
 import { Authguard } from 'src/guards/auth.guard';
 import { GetUser } from 'src/decorators/user.decorator';
 import { ReturnedUser } from 'src/dtos/returnedUser.dto';
+import { BanUserDto } from 'src/dtos/banUser.dto';
 
 @Controller('user')
 export class UserController {
@@ -14,7 +15,7 @@ export class UserController {
     ){}
 
     @Get()
-    @UseGuards(RolesGuard)
+    @UseGuards(Authguard, RolesGuard)
     @Roles(IRol.manager)
     @HttpCode(200)
     async getAllUsers(): Promise <User[] |void>{
@@ -32,7 +33,6 @@ export class UserController {
         return user;
     }
     
-
     @Put('deleteUser')
     @HttpCode(201)
     @UseGuards(Authguard)
@@ -41,4 +41,18 @@ export class UserController {
     ): Promise <string | void>{
         return await this.userService.deleteUser(userUuid)
     }
+
+    @Put('banUser')
+@HttpCode(200)
+async banUser(
+    @Body() banUserDto: BanUserDto,
+): Promise<string | null> {
+    const { username, email, uuid } = banUserDto;
+
+    const field = username ? 'username' : email ? 'email' : 'uuid';
+    const value = username || email || uuid;
+
+    return await this.userService.banUser(field as keyof User, value);
+}
+
 }
