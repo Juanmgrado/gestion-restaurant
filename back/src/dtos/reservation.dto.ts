@@ -8,13 +8,13 @@ export class CreateReservationDto {
   @IsNotEmpty({ message: 'Introduzca el día de la reserva' })
   @Transform(({ value }) => new Date(value))  
   @IsDateNotPassed({ message: 'La fecha de la reserva no puede ser menor al día de hoy' }) 
-  readonly day: Date;
+  readonly day: string;
 
   @IsDate()
   @IsNotEmpty({ message: 'La fecha de reserva es obligatoria' })
   @Transform(({ value }) => new Date(value))  
   @IsTimeInRange({ message: 'La hora de la reserva debe ser entre las 13:00 y las 23:00' }) 
-  readonly startTime: Date;
+  readonly startTime: string;
 
  
  

@@ -25,23 +25,30 @@ export class PaypalService {
   ) {
     this.client = client;
   }
-
   async createOrder(reservationUuid: string, currency: string): Promise<any> {
-    
+    console.log('Reservation UUID:', reservationUuid); // Verificar UUID de la reserva
+    console.log('Currency:', currency); // Verificar código de moneda
+  
     let reservationPayment = await this.reservationRepository.findOneBy({
       uuid: reservationUuid,
     });
-    
-    if (!reservationPayment)
-        throw new NotFoundException('Reserva no encontrada');
-    
-    const newPayment = new Payment()
+  
+    if (!reservationPayment) {
+      console.error('Reserva no encontrada');
+      throw new NotFoundException('Reserva no encontrada');
+    }
+  
+    console.log('Reservation Payment:', reservationPayment); // Mostrar detalles de la reserva encontrada
+  
+    const newPayment = new Payment();
     let amountValue = reservationPayment.reservationWorth;
-
+  
+    console.log('Amount Value:', amountValue); // Verificar el valor de la reserva
+  
     const request = new paypal.orders.OrdersCreateRequest();
     request.prefer('return=representation');
-
-    request.requestBody({
+  
+    const requestBody = {
       intent: 'CAPTURE',
       purchase_units: [
         {
@@ -56,24 +63,38 @@ export class PaypalService {
         return_url: `http://localhost:3000/?paymentOrder=${reservationPayment.uuid}`,
         cancel_url: `http://tu-aplicacion.com/paypal/cancel=${reservationPayment.uuid}`,
       },
-    });
-
+    };
+  
+    console.log('Request Body:', JSON.stringify(requestBody, null, 2)); // Verificar el cuerpo completo de la solicitud
+  
+    request.requestBody(requestBody);
+  
     try {
       const order = await this.client.execute(request);
-
+  
+      console.log('Order Response:', JSON.stringify(order, null, 2)); // Verificar la respuesta de PayPal
+  
       newPayment.id = order.result.id;
-      newPayment.reservation = reservationPayment
-    
-      await this.paymentRepository.save(newPayment)
+      newPayment.reservation = reservationPayment;
+  
+      console.log('Saving New Payment:', newPayment); // Verificar datos del pago antes de guardar
+      await this.paymentRepository.save(newPayment);
+  
       reservationPayment.payment = newPayment;
-
-      await this.reservationRepository.save(reservationPayment)
-
-      return order.result.links.find((link) => link.rel === 'approve').href;
+  
+      console.log('Saving Updated Reservation:', reservationPayment); // Verificar reserva actualizada antes de guardar
+      await this.reservationRepository.save(reservationPayment);
+  
+      const approveLink = order.result.links.find((link) => link.rel === 'approve').href;
+      console.log('Approve Link:', approveLink); // Verificar enlace de aprobación
+  
+      return approveLink;
     } catch (err) {
+      console.error('Error al crear la orden de PayPal:', err); // Mostrar error completo
       throw new Error(`Error al crear la orden de PayPal: ${err.message}`);
     }
   }
+  
 
   async captureOrder(
     token: string,
