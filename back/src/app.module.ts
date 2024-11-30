@@ -15,7 +15,8 @@ import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import { clodinaryConfig } from './config/cloudinary.config';
 import { PedidoModule } from './pedidos/pedidos.module';
 import { PaymentModule } from './payment/payment.module';
-import { PaypalModule } from './paypal/paypal.module';
+import { PayPalModule } from './payypal/payypal.module';
+
 
 
 @Module({
@@ -39,7 +40,9 @@ import { PaypalModule } from './paypal/paypal.module';
       NodemailerModule,
       CloudinaryModule,
       PaymentModule,
-      PaypalModule
+      PayPalModule
+      /* PaypalModule, */
+
   ],
   controllers: [AppController],
   providers: [AppService],

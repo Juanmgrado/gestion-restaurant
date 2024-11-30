@@ -1,4 +1,4 @@
-import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
+/* import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import * as paypal from '@paypal/checkout-server-sdk';
 import { HttpService } from '@nestjs/axios'
 import { IStatus, Reservation } from 'src/entities/reservation.entity';
@@ -80,11 +80,11 @@ export class PaypalService {
     request.requestBody(requestBody);
 
     try {
-        const order = await this.client.execute(request);
+        const payment = await this.client.execute(request);
 
-        console.log('Order Response:', JSON.stringify(order, null, 2)); // Verificar la respuesta de PayPal
+        console.log('Order Response:', JSON.stringify(payment, null, 2)); // Verificar la respuesta de PayPal
 
-        newPayment.id = order.result.id;
+        newPayment.id = payment.result.id;
         newPayment.reservation = reservationPayment;
 
         console.log('Saving New Payment:', newPayment); // Verificar datos del pago antes de guardar
@@ -96,7 +96,7 @@ export class PaypalService {
         await this.reservationRepository.save(reservationPayment);
 
         // Obtener el approveLink
-        const approveLink = order.result.links.find((link) => link.rel === 'approve')?.href;
+        const approveLink = payment.result.links.find((link) => link.rel === 'approve')?.href;
 
         if (!approveLink) {
             console.error('Approve link no encontrado');
@@ -105,7 +105,7 @@ export class PaypalService {
 
         // Retornar tanto el orderId como el approveLink
         return {
-            orderId: order.result.id,  // El orderId que necesitas
+            paymentID: payment.result.id,  // El orderId que necesitas
             approveLink: approveLink,   // El approveLink para redirigir
         };
     } catch (err) {
@@ -180,4 +180,4 @@ export class PaypalService {
       }
     });
   }
-}  
+}   */
