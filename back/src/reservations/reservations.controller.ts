@@ -1,8 +1,10 @@
-import { Body, Controller, HttpCode, Post, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { CreateReservationDto } from 'src/dtos/reservation.dto';
 import { GetUser } from 'src/decorators/user.decorator';
 import { ReservationsService } from './reservations.service';
 import { Authguard } from 'src/guards/auth.guard';
+import { JwtStrategy } from 'src/guards/jwt.guard';
+import { ReturnedReservation } from 'src/dtos/returnedReservationType';
 
 @Controller('reservations')
 export class ReservationsController {
@@ -19,4 +21,13 @@ export class ReservationsController {
     ){
         return this.reservationsService.createReservation(newReservation,userUuid)
     }
+     // Proteger con autenticación (opcional, dependiendo de tu arquitectura)
+    @Get('reservation/:userUuid')
+    @UseGuards(Authguard)
+    async getUserReservations(
+      @Param('userUuid') userUuid: string,
+    ): Promise<ReturnedReservation[] | null> {
+      return this.reservationsService.getUserReservations(userUuid);
+    }
+
 }

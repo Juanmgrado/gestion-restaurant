@@ -24,7 +24,6 @@ export class ProductsController {
           stock: 100,
           category: 'Platos Principales',
           subcategory: 'Mediterranea',
-          productDescription: 'Muy sabrosa y fresca, hecha con ingredientes de calidad.',
           image: 'https://example.com/images/pizza-margarita.jpg',
         },
       },

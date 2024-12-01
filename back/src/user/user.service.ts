@@ -1,10 +1,11 @@
-import { ConflictException, Injectable, InternalServerErrorException } from '@nestjs/common';
+import { ConflictException, Injectable, InternalServerErrorException, NotFoundException, ParseUUIDPipe } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateUserDto } from 'src/dtos/user.dto';
+import { CreateUserDto } from 'src/dtos/createUser.dto';
 import { User } from 'src/entities/user.entity';
 import * as bcryptjs from 'bcryptjs'
 import { Repository } from 'typeorm';
 import { ReturnedUser } from 'src/dtos/returnedUser.dto';
+import { BanUserDto } from 'src/dtos/banUser.dto';
 
 @Injectable()
 export class UserService {
@@ -34,8 +35,12 @@ export class UserService {
             return { 
                 uuid: createdUser.uuid,
                 username: createdUser.username,
+                fullname: createdUser.fullname,
                 email: createdUser.email,
-                rol: createdUser.rol
+                rol: createdUser.rol,
+                banned: createdUser.banned,
+                isActive: createdUser. isActive
+
             }
 
         }catch(error){
@@ -47,7 +52,7 @@ export class UserService {
         
         try {
             const foundUser = await this.userRepository.findOne({ where: { [field]: value } });
-                if (!foundUser) throw new ConflictException("Credenciales inválidas");
+                if (!foundUser) throw new NotFoundException("Credenciales inválidas");
             
             return foundUser;
         
@@ -56,7 +61,57 @@ export class UserService {
         }
     }
 
-    async getAllUsers(){
+    async getAllUsers(): Promise <User[]>{
         return await this.userRepository.find()
+    }
+
+    async deleteUser(userUuid: string): Promise <string | void >{
+        
+        try{
+            const foundUser = await this.userRepository.findOneBy({uuid: userUuid})
+                if (!foundUser) throw new NotFoundException('Usuario no encontrado')
+        
+            foundUser.isActive = false;
+            
+            return 'Usuario eliminado con éxito'
+        
+        }catch(error){
+            throw new InternalServerErrorException('Error en el servidor')
+        
+        }             
+    }
+    async findUserById(id: string): Promise<ReturnedUser | null> {
+        try {
+            const user = await this.userRepository.findOne({ where: { uuid: id } });
+            if (!user) throw new ConflictException('Usuario no encontrado.');
+    
+            return {
+                uuid: user.uuid,
+                fullname: user.fullname,
+                username: user.username,
+                email: user.email,
+                rol: user.rol,
+                isActive: user.isActive,
+                banned: user.banned
+            };
+        } catch (error) {
+            throw new InternalServerErrorException(`Error en el servidor: ${error.message}`);
+        }
+    }
+    
+    async banUser(field: keyof User, value: string): Promise<string | null>{
+        try{
+
+            const foundUser = await this.userRepository.findOne({where: {[field]: value}})
+                if (!foundUser) throw new NotFoundException('Usuario no encontrado');
+        
+            foundUser.banned = true;
+                await this.userRepository.save(foundUser)
+
+            return `Usuario ${foundUser.username} baneado correctamente`;
+        
+        }catch(error){
+            throw new InternalServerErrorException('Ocurrió un error inesperado')
+        }
     }
 } 

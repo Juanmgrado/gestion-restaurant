@@ -8,24 +8,20 @@ import { RolesGuard } from 'src/guards/rol.guard';
 
 @Controller('table')
 export class TableController {
-    constructor(
-        private readonly tableService: TableService
-    ){}
-
-    @Get('tablesSeeder')
-    async tableSeeder(){
-        return this.tableService.tableSeeder()
-    }
+    constructor(private readonly tableService: TableService) {}
 
     @Post('addTable')
-    @UseGuards(Authguard, RolesGuard)
+    @UseGuards(RolesGuard)
     @Roles(IRol.manager)
     @HttpCode(201)
-    async addTable(
-        @Body()newTable: CreateTableDto
-    ){
-        return await this.tableService.addTable(newTable)
+    async addTable(@Body() newTable: CreateTableDto) {
+        return await this.tableService.addTable(newTable);
     }
 
+    @Get('freeTables')
+    @UseGuards(Authguard)
+    @HttpCode(200)
+    async availableTables(@Body() date: Date) {
+        return this.tableService.availableTables(date);
+    }
 }
-

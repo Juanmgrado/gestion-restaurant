@@ -21,6 +21,9 @@ export class CreateProductDto {
 
   @IsString()
   category: IProductCategory;
+  
+  @IsString()
+  duration: string
 
   @IsString()
   subcategory: IProductSubcategory
