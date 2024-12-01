@@ -34,6 +34,7 @@ export class PaypalService {
         throw new Error('El código de moneda es requerido y está vacío.');
     }
 
+
     let reservationPayment = await this.reservationRepository.findOneBy({
         uuid: reservIdentification,
     });
@@ -111,6 +112,57 @@ export class PaypalService {
     } catch (err) {
         console.error('Error al crear la orden de PayPal:', err); // Mostrar error completo
         throw new Error(`Error al crear la orden de PayPal: ${err.message}`);
+
+  async createOrder(reservationUuid: string, currency: string): Promise<any> {
+    
+    try{
+      
+      return await this.dataSource.transaction(async(manager) => {
+
+        let reservationPayment = await manager.getRepository(Reservation).findOneBy({
+          uuid: reservationUuid,
+        });   
+        if (!reservationPayment)throw new NotFoundException('Reserva no encontrada');
+        
+        const newPayment = new Payment()
+        let amountValue = reservationPayment.reservationWorth;
+        
+        const request = new paypal.orders.OrdersCreateRequest();
+        request.prefer('return=representation');
+        
+        request.requestBody({
+          intent: 'CAPTURE',
+          purchase_units: [
+            {
+              amount: {
+                currency_code: currency,
+                value: amountValue,
+              },
+              reference_id: reservationPayment.uuid,
+            },
+          ],
+          application_context: {
+            return_url: `http://localhost:3000/?paymentOrder=${reservationPayment.uuid}`,
+            cancel_url: `http://tu-aplicacion.com/paypal/cancel=${reservationPayment.uuid}`,
+          },
+        });
+        const order = await this.client.execute(request);
+        
+        newPayment.id = order.result.id;
+        newPayment.reservation = reservationPayment
+        
+        await this.paymentRepository.save(newPayment)
+        reservationPayment.payment = newPayment;
+        
+        await manager.getRepository(Reservation).save(reservationPayment)
+        
+        return order.result.links.find((link) => link.rel === 'approve').href;
+        
+      })
+
+    }catch (error) {
+      throw new Error(`Error al crear la orden de PayPal: ${error.message}`);
+
     }
 }
 
@@ -125,36 +177,35 @@ export class PaypalService {
     request.requestBody({
       payer_id: payerId,
     });
+    try{
+      return await this.dataSource.transaction(async (manager) => {
+        const order = await this.client.execute(request);
   
-    return await this.dataSource.transaction(async (manager) => {
-      const order = await this.client.execute(request);
+        const founPayment = await manager.getRepository(Payment).findOne({
+          where: { id: paymentId },
+          relations: ['reservation'],
+        });
   
-      const founPayment = await manager.getRepository(Payment).findOne({
-        where: { id: paymentId },
-        relations: ['reservation'],
-      });
+          if (!founPayment) throw new NotFoundException('Orden no hallada');
   
-      if (!founPayment) throw new NotFoundException('Orden no hallada');
+        const reservation = await manager.getRepository(Reservation).findOne({
+          where: { uuid: founPayment.reservation.uuid },
+          relations: ['payment', 'user'],
+        });
+          if (!reservation) throw new NotFoundException('Reserva no encontrada');
   
-      const reservation = await manager.getRepository(Reservation).findOne({
-        where: { uuid: founPayment.reservation.uuid },
-        relations: ['payment', 'user'],
-      });
-      if (!reservation) throw new NotFoundException('Reserva no encontrada');
+          if (order.result.status === 'COMPLETED') {
+            founPayment.total =
+              order.result.purchase_units[0].payments.captures[0].amount.value;
+            founPayment.currency =
+              order.result.purchase_units[0].payments.captures[0].amount.currency_code;
+            founPayment.payerEmail =
+              order.result.payment_source.paypal.email_address;
+            founPayment.status =
+              order.result.purchase_units[0].payments.captures[0].status;
+            founPayment.payerId = order.result.payer.payer_id;
   
-      try {
-        if (order.result.status === 'COMPLETED') {
-          founPayment.total =
-            order.result.purchase_units[0].payments.captures[0].amount.value;
-          founPayment.currency =
-            order.result.purchase_units[0].payments.captures[0].amount.currency_code;
-          founPayment.payerEmail =
-            order.result.payment_source.paypal.email_address;
-          founPayment.status =
-            order.result.purchase_units[0].payments.captures[0].status;
-          founPayment.payerId = order.result.payer.payer_id;
-  
-          await manager.getRepository(Reservation).update(reservation.uuid, { status: IStatus.active });
+            await manager.getRepository(Reservation).update(reservation.uuid, { status: IStatus.active });
   
           founPayment.user = reservation.user;
           await manager.getRepository(Payment).save(founPayment);
@@ -175,9 +226,9 @@ export class PaypalService {
             message: 'Pago rechazado',
           };
         }
-      } catch (err) {
+      });
+    }catch (err) {
         throw new InternalServerErrorException(`Error al capturar la orden de PayPal: ${err.message}`);
       }
-    });
   }
 }   */

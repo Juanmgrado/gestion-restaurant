@@ -5,6 +5,7 @@ import { User } from 'src/entities/user.entity';
 import * as bcryptjs from 'bcryptjs'
 import { Repository } from 'typeorm';
 import { ReturnedUser } from 'src/dtos/returnedUser.dto';
+import { BanUserDto } from 'src/dtos/banUser.dto';
 
 @Injectable()
 export class UserService {
@@ -98,4 +99,19 @@ export class UserService {
         }
     }
     
+    async banUser(field: keyof User, value: string): Promise<string | null>{
+        try{
+
+            const foundUser = await this.userRepository.findOne({where: {[field]: value}})
+                if (!foundUser) throw new NotFoundException('Usuario no encontrado');
+        
+            foundUser.banned = true;
+                await this.userRepository.save(foundUser)
+
+            return `Usuario ${foundUser.username} baneado correctamente`;
+        
+        }catch(error){
+            throw new InternalServerErrorException('Ocurrió un error inesperado')
+        }
+    }
 } 
