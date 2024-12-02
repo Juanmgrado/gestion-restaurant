@@ -21,6 +21,10 @@ export class TableService implements OnModuleInit {
     }
 
 
+    async getAllTables(): Promise<Table[]> {
+        return await this.tableRepository.find();
+    }
+    
     private async tableSeeder() {
     
         for (const table of data) {

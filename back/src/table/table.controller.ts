@@ -10,6 +10,14 @@ import { RolesGuard } from 'src/guards/rol.guard';
 export class TableController {
     constructor(private readonly tableService: TableService) {}
 
+    
+
+    @Get('all')
+    @HttpCode(200)
+    async getAllTables() {
+        return this.tableService.getAllTables();
+    }
+
     @Post('addTable')
     @UseGuards(RolesGuard)
     @Roles(IRol.manager)
