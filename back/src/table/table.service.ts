@@ -70,13 +70,12 @@ export class TableService {
         reserved: Table[];
         occupied: Table[];
     }> {
-        // Obtener las reservas para el día y hora seleccionados
         const reservations = await this.reservationRepository.find({
             where: { 
                 day, 
-                startTime // Incluimos el startTime directamente en la búsqueda
+                startTime 
             },
-            relations: ['table'], // Relacionamos las mesas con las reservas
+            relations: ['table'], 
         });
     
         const occupiedReservations = reservations.filter(
