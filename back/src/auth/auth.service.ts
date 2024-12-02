@@ -68,12 +68,12 @@ export class AuthService {
     
      
         if (!foundUser) throw new ConflictException('Credenciales inválidas');
-    
-       
-        const chekedPassword = await bcryptjs.compare(password, foundUser.password);
+        if(foundUser.banned === true) throw new ConflictException('Acceso denegado, por favor comuniquese con el soporte')
+        if(foundUser.isActive === false) throw new ConflictException('Usuario inactivo, por favor comuniquese con el soporte')
+        
+            const chekedPassword = await bcryptjs.compare(password, foundUser.password);
         if (!chekedPassword) throw new ConflictException('Credenciales inválidas');
     
-        // Prepara el payload para el token
         const payload: IPayload = {
             uuid: foundUser.uuid,
             username: foundUser.username,
@@ -81,10 +81,8 @@ export class AuthService {
             rol: foundUser.rol,
         };
     
-        // Genera los tokens de acceso y refresh
         const { accessToken, refreshToken } = await this.genereteToken(payload);
     
-        // Retorna todos los datos relevantes
         return {
             refreshToken,
             accessToken,
@@ -94,8 +92,8 @@ export class AuthService {
                 email: foundUser.email,
                 fullname: foundUser.fullname,
                 rol: foundUser.rol,
-                isActive: foundUser.isActive, // Si tienes esta propiedad
-                banned: foundUser.banned,     // Otras propiedades que necesites
+                isActive: foundUser.isActive, 
+                banned: foundUser.banned,     
             },
         };
     }
@@ -103,11 +101,10 @@ export class AuthService {
 
     async signup(newUser: CreateUserDto) {
         try {
-            // Crea el usuario
+            
             const createdUser = await this.userService.createUser(newUser);
             if (!createdUser) throw new BadRequestException('Error al crear usuario');
     
-            // Prepara el payload para el token
             const payload: IPayload = {
                 uuid: createdUser.uuid,
                 username: createdUser.username,
@@ -115,13 +112,10 @@ export class AuthService {
                 rol: createdUser.rol,
             };
     
-            // Genera los tokens
             const { accessToken, refreshToken } = await this.genereteToken(payload);
     
-            // Envía el correo de bienvenida
             await this.nodemailerService.registerMain(newUser.email);
     
-            // Retorna todos los datos relevantes
             return {
                 accessToken,
                 refreshToken,
@@ -130,8 +124,8 @@ export class AuthService {
                     username: createdUser.username,
                     email: createdUser.email,
                     rol: createdUser.rol,
-                    isActive: createdUser.isActive, // Si tienes esta propiedad
-                    banned: createdUser.banned,     // Otras propiedades que necesites
+                    isActive: createdUser.isActive,
+                    banned: createdUser.banned,    
                 },
             };
         } catch (error) {
