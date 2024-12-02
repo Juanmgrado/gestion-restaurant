@@ -19,10 +19,10 @@ export class Reservation {
   date: Date;
   
   @Column()
-  day: Date;
+  day: string;
   
-  @Column({ type: 'timestamp' })
-  startTime: Date;
+  @Column()
+  startTime: string;
 
   @Column({ type: 'int' })
   guests: number;

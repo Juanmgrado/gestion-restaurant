@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, Post, Query, UseGuards } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, HttpCode, Post, Query, UseGuards } from '@nestjs/common';
 import { TableService } from './table.service';
 import { CreateTableDto } from 'src/dtos/addTable.dto';
 import { Authguard } from 'src/guards/auth.guard';
@@ -36,20 +36,19 @@ export class TableController {
         return this.tableService.availableTables(date)
     }
 
-    @Get('tables-status')
-async getTablesStatus(
+    @Post('tables-status')
+    async getTablesStatus(
     @Body() { day, startTime }: { day: string; startTime: string }
-): Promise<{
+    ): Promise<{
     free: Table[];
     reserved: Table[];
     occupied: Table[];
-}> {
-    const parsedDay = new Date(day); 
-    const parsedStartTime = new Date(startTime);
+    }> {
 
-    console.log(parsedDay, parsedStartTime); 
+    if(!day)throw new BadRequestException('Debe insertar una fecha válida')
+    if(!startTime)throw new BadRequestException('Debe insertar una hora válida')
 
-    return await this.tableService.tablesStatus(parsedDay, parsedStartTime);
+    return await this.tableService.tablesStatus(day, startTime);
 }
 
 }

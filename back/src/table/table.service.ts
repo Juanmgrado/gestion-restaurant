@@ -65,7 +65,7 @@ export class TableService {
         return freeTables;
     }
 
-    async tablesStatus(day: Date, startTime: Date): Promise<{
+    async tablesStatus(day: string, startTime: string): Promise<{
         free: Table[];
         reserved: Table[];
         occupied: Table[];

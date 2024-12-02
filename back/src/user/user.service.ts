@@ -63,7 +63,7 @@ export class UserService {
 
     async getAllUsers(): Promise <User[]>{
         return await this.userRepository.find({
-            select: ['fullname','username', 'email', 'banned', 'isActive']})
+            select: ['fullname','username', 'email', 'banned', 'isActive', 'rol']})
     }
 
     async deleteUser(userUuid: string): Promise <string | void >{
