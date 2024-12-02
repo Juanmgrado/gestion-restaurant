@@ -6,7 +6,8 @@ import { Payment } from './payment.entity';
 export enum IStatus{
   pending = 'pending',
   active = 'active',
-  canceled = 'canceled'
+  canceled = 'canceled',
+  completed = 'completed'
 }
 
 @Entity('reservations')

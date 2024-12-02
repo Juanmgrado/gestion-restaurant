@@ -15,8 +15,8 @@ export class UserController {
     ){}
 
     @Get()
-    @UseGuards(Authguard, RolesGuard)
-    @Roles(IRol.manager)
+    // @UseGuards(Authguard, RolesGuard)
+    // @Roles(IRol.manager)
     @HttpCode(200)
     async getAllUsers(): Promise <User[] |void>{
         return this.userService.getAllUsers()
@@ -43,10 +43,10 @@ export class UserController {
     }
 
     @Put('banUser')
-@HttpCode(200)
-async banUser(
+    @HttpCode(200)
+    async banUser(
     @Body() banUserDto: BanUserDto,
-): Promise<string | null> {
+    ): Promise<{message:string} | null> {
     const { username, email, uuid } = banUserDto;
 
     const field = username ? 'username' : email ? 'email' : 'uuid';

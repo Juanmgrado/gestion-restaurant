@@ -21,12 +21,12 @@ async function bootstrap() {
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, documentFactory);
   app.enableCors({
-    origin: 'http://localhost:3001', // Permite solicitudes desde este origen
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Métodos HTTP permitidos
-    credentials: true, // Permite cookies y encabezados de autenticación
+    origin: 'http://localhost:3000', 
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', 
+    credentials: true, 
   });
 
-  await app.listen(3000);
+  await app.listen(3001);
 }
 
 bootstrap();

@@ -21,7 +21,7 @@ export class ReservationsController {
     ){
         return this.reservationsService.createReservation(newReservation,userUuid)
     }
-     // Proteger con autenticación (opcional, dependiendo de tu arquitectura)
+
     @Get('reservation/:userUuid')
     async getUserReservations(
       @Param('userUuid') userUuid: string,

@@ -62,7 +62,8 @@ export class UserService {
     }
 
     async getAllUsers(): Promise <User[]>{
-        return await this.userRepository.find()
+        return await this.userRepository.find({
+            select: ['fullname','username', 'email', 'banned', 'isActive']})
     }
 
     async deleteUser(userUuid: string): Promise <string | void >{
@@ -99,7 +100,7 @@ export class UserService {
         }
     }
     
-    async banUser(field: keyof User, value: string): Promise<string | null>{
+    async banUser(field: keyof User, value: string): Promise<{message:string} | null>{
         try{
 
             const foundUser = await this.userRepository.findOne({where: {[field]: value}})
@@ -108,7 +109,7 @@ export class UserService {
             foundUser.banned = true;
                 await this.userRepository.save(foundUser)
 
-            return `Usuario ${foundUser.username} baneado correctamente`;
+            return {message: `Usuario ${foundUser.username} baneado correctamente`};
         
         }catch(error){
             throw new InternalServerErrorException('Ocurrió un error inesperado')

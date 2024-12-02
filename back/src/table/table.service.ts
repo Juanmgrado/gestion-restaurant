@@ -1,8 +1,8 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateTableDto } from 'src/dtos/addTable.dto';
-import { ITableState, Table } from 'src/entities/table.entity';
-import { In, Not, Repository } from 'typeorm';
+import { Table } from 'src/entities/table.entity';
+import { In, Not, Or, Repository } from 'typeorm';
 import * as data from '../../data.json'
 import { IStatus, Reservation } from 'src/entities/reservation.entity';
 
@@ -31,11 +31,11 @@ export class TableService {
             .execute()
         })
         
-        return "Mesas agregadas con éxito";
+        return {message: "Mesa agregadas con éxito"};
     }
 
 
-    async addTable(newTable: CreateTableDto) {
+    async addTable(newTable: CreateTableDto): Promise<{message:string} | null> {
         const { tableNumber } = newTable;
       
         const existingTable = await this.tableRepository.findOneBy({ tableNumber });
@@ -44,7 +44,7 @@ export class TableService {
         const createdTable = this.tableRepository.create(newTable); 
         await this.tableRepository.save(createdTable); 
       
-        return 'Mesa agregada con éxito';
+        return { message: 'Mesa agregada con éxito'};
     }
 
     async availableTables(date: Date): Promise<Table[] | null>{
@@ -64,6 +64,49 @@ export class TableService {
 
         return freeTables;
     }
+
+    async tablesStatus(day: Date, startTime: Date): Promise<{
+        free: Table[];
+        reserved: Table[];
+        occupied: Table[];
+    }> {
+        // Obtener las reservas para el día y hora seleccionados
+        const reservations = await this.reservationRepository.find({
+            where: { 
+                day, 
+                startTime // Incluimos el startTime directamente en la búsqueda
+            },
+            relations: ['table'], // Relacionamos las mesas con las reservas
+        });
+    
+        const occupiedReservations = reservations.filter(
+            reservation => reservation.status === IStatus.active
+        );
+    
+        const reservedReservations = reservations.filter(
+            reservation => reservation.status === IStatus.pending
+        );
+    
+        const occupiedTableIds = occupiedReservations.map(reservation => reservation.table.uuid);
+        const reservedTableIds = reservedReservations.map(reservation => reservation.table.uuid);
+    
+        const allTables = await this.tableRepository.find();
+    
+        const freeTables = allTables.filter(
+            table => !occupiedTableIds.includes(table.uuid) && !reservedTableIds.includes(table.uuid)
+        );
+        const reservedTables = allTables.filter(table => reservedTableIds.includes(table.uuid));
+        const occupiedTables = allTables.filter(table => occupiedTableIds.includes(table.uuid));
+    
+        return {
+            free: freeTables,
+            reserved: reservedTables,
+            occupied: occupiedTables,
+        };
+    }
+    
+    
+    
 }
 
 
