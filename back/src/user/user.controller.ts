@@ -7,6 +7,7 @@ import { Authguard } from 'src/guards/auth.guard';
 import { GetUser } from 'src/decorators/user.decorator';
 import { ReturnedUser } from 'src/dtos/returnedUser.dto';
 import { FindUserDto } from 'src/dtos/findUser.dto';
+import { BanUserDto } from 'src/dtos/banUserDto';
 
 @Controller('user')
 export class UserController {
@@ -45,7 +46,7 @@ export class UserController {
     @Put('banUser')
     @HttpCode(200)
     async banUser(
-    @Body() banUserDto: FindUserDto,
+    @Body() banUserDto: BanUserDto,
     ): Promise<{message:string} | null> {
     const { username, email, uuid } = banUserDto;
 
