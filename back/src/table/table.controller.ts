@@ -41,3 +41,4 @@ export class TableController {
     return await this.tableService.tablesStatus(day, startTime);
 }
 
+}

@@ -2,7 +2,7 @@
 import { ConflictException, Injectable, OnModuleInit } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateTableDto } from 'src/dtos/addTable.dto';
-import { ITableState, Table } from 'src/entities/table.entity';
+import { Table } from 'src/entities/table.entity';
 import { In, Not, Repository } from 'typeorm';
 import * as data from '../../data.json';
 
