@@ -1,3 +1,4 @@
+
 import { ConflictException, Injectable, OnModuleInit } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateTableDto } from 'src/dtos/addTable.dto';
@@ -14,8 +15,7 @@ export class TableService implements OnModuleInit {
         @InjectRepository(Reservation)
         private readonly reservationRepository: Repository<Reservation>
     ) {}
-
-    
+  
     async onModuleInit() {
         await this.tableSeeder();
     }
@@ -67,4 +67,46 @@ export class TableService implements OnModuleInit {
 
         return freeTables;
     }
+
+    async tablesStatus(day: string, startTime: string): Promise<{
+        free: Table[];
+        reserved: Table[];
+        occupied: Table[];
+    }> {
+        const reservations = await this.reservationRepository.find({
+            where: { 
+                day, 
+                startTime 
+            },
+            relations: ['table'], 
+        });
+    
+        const occupiedReservations = reservations.filter(
+            reservation => reservation.status === IStatus.active
+        );
+    
+        const reservedReservations = reservations.filter(
+            reservation => reservation.status === IStatus.pending
+        );
+    
+        const occupiedTableIds = occupiedReservations.map(reservation => reservation.table.uuid);
+        const reservedTableIds = reservedReservations.map(reservation => reservation.table.uuid);
+    
+        const allTables = await this.tableRepository.find();
+    
+        const freeTables = allTables.filter(
+            table => !occupiedTableIds.includes(table.uuid) && !reservedTableIds.includes(table.uuid)
+        );
+        const reservedTables = allTables.filter(table => reservedTableIds.includes(table.uuid));
+        const occupiedTables = allTables.filter(table => occupiedTableIds.includes(table.uuid));
+    
+        return {
+            free: freeTables,
+            reserved: reservedTables,
+            occupied: occupiedTables,
+        };
+    }
+    
+    
+    
 }

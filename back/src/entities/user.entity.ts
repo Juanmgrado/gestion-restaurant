@@ -6,7 +6,8 @@ import { Payment } from './payment.entity';
 
 export enum IRol{
   user = 'user',
-  manager = 'manager',
+  camarero = 'camarero',
+  cheff = 'cheff'
 }
 
 @Entity('users')

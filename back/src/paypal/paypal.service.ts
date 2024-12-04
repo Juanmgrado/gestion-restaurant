@@ -206,7 +206,7 @@ export class PaypalService {
             founPayment.payerId = order.result.payer.payer_id;
   
             await manager.getRepository(Reservation).update(reservation.uuid, { status: IStatus.active });
-  
+
           founPayment.user = reservation.user;
           await manager.getRepository(Payment).save(founPayment);
           await this.nodemailerService.reservActiveMail(reservation.user.email, founPayment.id);

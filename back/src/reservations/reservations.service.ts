@@ -23,7 +23,7 @@ export class ReservationsService {
 
     async createReservation(newReservation: CreateReservationDto, userUuid: string): Promise<ReturnedReservation | null> {
         const { startTime, tableNumber, day, guests } = newReservation;
-
+        
         return await this.datasource.transaction(async (manager) =>{
 
             const foundUser = await manager.getRepository(User).findOne({

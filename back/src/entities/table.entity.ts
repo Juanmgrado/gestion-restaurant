@@ -3,11 +3,6 @@ import { Reservation } from './reservation.entity';
 import { Order } from './order.entity';
 import { Pedido } from './pedidos.entity';
 
-export enum ITableState{
-  free = 'free',
-  ocupied = 'ocupied',
-  reserved = 'reserved'
-}
 
 @Entity('tables')
 export class Table {
@@ -16,9 +11,6 @@ export class Table {
 
   @Column({ nullable: false})
   tableNumber: number;
-
-  @Column({ type: 'enum', enum: ITableState, default: ITableState.free })
-  status: ITableState;
 
   @OneToMany(() => Reservation, (reservation) => reservation.table)
   reservations: Reservation[];

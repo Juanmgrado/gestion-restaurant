@@ -6,7 +6,8 @@ import { Payment } from './payment.entity';
 export enum IStatus{
   pending = 'pending',
   active = 'active',
-  canceled = 'canceled'
+  canceled = 'canceled',
+  completed = 'completed'
 }
 
 @Entity('reservations')
@@ -18,10 +19,10 @@ export class Reservation {
   date: Date;
   
   @Column()
-  day: Date;
+  day: string;
   
-  @Column({ type: 'timestamp' })
-  startTime: Date;
+  @Column()
+  startTime: string;
 
   @Column({ type: 'int' })
   guests: number;
