@@ -65,14 +65,14 @@ export class AuthService {
             email
                 ? await this.userService.findUserByField('email', email)
                 : await this.userService.findUserByField('username', username);
-    
-     
-        if (!foundUser) throw new ConflictException('Credenciales inválidas');
-        if(foundUser.banned === true) throw new ConflictException('Acceso denegado, por favor comuniquese con el soporte')
-        if(foundUser.isActive === false) throw new ConflictException('Usuario inactivo, por favor comuniquese con el soporte')
         
-            const chekedPassword = await bcryptjs.compare(password, foundUser.password);
-        if (!chekedPassword) throw new ConflictException('Credenciales inválidas');
+                    const chekedPassword = await bcryptjs.compare(password, foundUser.password);
+                    if (!chekedPassword) throw new ConflictException('Credenciales inválidas');
+                
+                   if(!foundUser) throw new ConflictException('Credenciales inválidas');
+                   if(foundUser.banned === true) throw new ConflictException('Acceso denegado, por favor comuniquese con el soporte')
+                   if(foundUser.isActive === false) throw new ConflictException('Usuario inactivo, por favor comuniquese con el soporte')
+                   
     
         const payload: IPayload = {
             uuid: foundUser.uuid,

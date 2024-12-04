@@ -16,8 +16,8 @@ export class UserController {
     ){}
 
     @Get()
-    // @UseGuards(Authguard, RolesGuard)
-    // @Roles(IRol.manager)
+    @UseGuards(Authguard)
+    @Roles(IRol.camarero)
     @HttpCode(200)
     async getAllUsers(): Promise <User[] |void>{
         return this.userService.getAllUsers()
@@ -44,6 +44,8 @@ export class UserController {
     }
 
     @Put('banUser')
+    @UseGuards(Authguard)
+    @Roles(IRol.camarero)
     @HttpCode(200)
     async banUser(
     @Body() banUserDto: BanUserDto,
@@ -54,16 +56,19 @@ export class UserController {
     const value = username || email || uuid;
 
     return await this.userService.banUser(field as keyof User, value);
-}
-@Put('changeRol')
-async changeRol(
+    }
+
+    @Put('changeRol')
+    @UseGuards(Authguard)
+    @Roles(IRol.camarero)
+    async changeRol(
     @Body() findUser: FindUserDto & { newRole: IRol }
-): Promise<{ message: string } | null> {
+    ): Promise<{ message: string } | null> {
     const { username, email, uuid, newRole } = findUser;
 
     const field = username ? 'username' : email ? 'email' : 'uuid';
     const value = username || email || uuid;
 
     return await this.userService.changeRol(field as keyof User, value, newRole);
-}
+    }
 }
