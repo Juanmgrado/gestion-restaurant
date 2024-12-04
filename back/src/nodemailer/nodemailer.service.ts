@@ -251,7 +251,7 @@ export class NodemailerService {
                     <p>Si necesitas ayuda, no dudes en ponerte en contacto con nosotros.</p>
                 </div>
                 <div class="footer">
-                    <p>© {{year}} Restaurante Gourmet. Todos los derechos reservados.</p>
+                    <p>© ${new Date().getFullYear()} Restaurante Gourmet. Todos los derechos reservados.</p>
                 </div>
             </div>
         </body>`
@@ -262,4 +262,5 @@ export class NodemailerService {
         console.log(error)
         throw new ConflictException(`Error a enviar email ${error}`)
     }
+    
 }

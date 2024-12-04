@@ -1,10 +1,10 @@
-import { IsDate, IsNotEmpty, IsNumber, Min, Max } from 'class-validator';
+import { IsDate, IsNotEmpty, IsNumber, Min, Max, IsString } from 'class-validator';
 import { Transform } from 'class-transformer'; 
 import { IsTimeInRange } from '../decorators/timeMatch.decorator';import { IsDateNotPassed } from '../decorators/dayCheck.decorator';
   
 export class CreateReservationDto {
   
-  @IsDate()
+  @IsString()
   @IsNotEmpty({ message: 'Introduzca el día de la reserva' })
   @Transform(({ value }) => new Date(value))  
   @IsDateNotPassed({ message: 'La fecha de la reserva no puede ser menor al día de hoy' }) 

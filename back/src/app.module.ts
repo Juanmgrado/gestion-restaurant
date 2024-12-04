@@ -19,6 +19,7 @@ import { PayPalModule } from './payypal/payypal.module';
 
 
 
+
 @Module({
     imports: [
       ConfigModule.forRoot({
@@ -32,7 +33,6 @@ import { PayPalModule } from './payypal/payypal.module';
       }),
       UsersModule,
       AuthModule,
-
       ProductsModule,
       PedidoModule,
       TableModule,
@@ -42,7 +42,6 @@ import { PayPalModule } from './payypal/payypal.module';
       PaymentModule,
       PayPalModule
       /* PaypalModule, */
-
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -6,7 +6,8 @@ import { IRol, User } from 'src/entities/user.entity';
 import { Authguard } from 'src/guards/auth.guard';
 import { GetUser } from 'src/decorators/user.decorator';
 import { ReturnedUser } from 'src/dtos/returnedUser.dto';
-import { BanUserDto } from 'src/dtos/banUser.dto';
+import { FindUserDto } from 'src/dtos/findUser.dto';
+import { BanUserDto } from 'src/dtos/banUserDto';
 
 @Controller('user')
 export class UserController {
@@ -15,8 +16,8 @@ export class UserController {
     ){}
 
     @Get()
-    @UseGuards(Authguard, RolesGuard)
-    @Roles(IRol.manager)
+    @UseGuards(Authguard)
+    @Roles(IRol.camarero)
     @HttpCode(200)
     async getAllUsers(): Promise <User[] |void>{
         return this.userService.getAllUsers()
@@ -43,16 +44,31 @@ export class UserController {
     }
 
     @Put('banUser')
-@HttpCode(200)
-async banUser(
+    @UseGuards(Authguard)
+    @Roles(IRol.camarero)
+    @HttpCode(200)
+    async banUser(
     @Body() banUserDto: BanUserDto,
-): Promise<string | null> {
+    ): Promise<{message:string} | null> {
     const { username, email, uuid } = banUserDto;
 
     const field = username ? 'username' : email ? 'email' : 'uuid';
     const value = username || email || uuid;
 
     return await this.userService.banUser(field as keyof User, value);
-}
+    }
 
+    @Put('changeRol')
+    @UseGuards(Authguard)
+    @Roles(IRol.camarero)
+    async changeRol(
+    @Body() findUser: FindUserDto & { newRole: IRol }
+    ): Promise<{ message: string } | null> {
+    const { username, email, uuid, newRole } = findUser;
+
+    const field = username ? 'username' : email ? 'email' : 'uuid';
+    const value = username || email || uuid;
+
+    return await this.userService.changeRol(field as keyof User, value, newRole);
+    }
 }

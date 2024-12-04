@@ -5,7 +5,7 @@ export class ReturnedUser{
     username: string;
     fullname:string
     email: string;
-    rol: IRol
-    banned: boolean
-    isActive:boolean
+    rol: IRol;
+    banned: boolean;
+    isActive:boolean;
 }
