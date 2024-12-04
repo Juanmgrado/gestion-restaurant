@@ -1,4 +1,4 @@
-import { Body, Controller, ParseUUIDPipe, Get, Param, Post, Query } from '@nestjs/common';
+/* import { Body, Controller, ParseUUIDPipe, Get, Param, Post, Query } from '@nestjs/common';
 import { PaypalService } from './paypal.service';
 import { ApiResponse } from '@nestjs/swagger';
 
@@ -6,15 +6,16 @@ import { ApiResponse } from '@nestjs/swagger';
 export class PaypalController {
     constructor(private readonly paypalService: PaypalService) {}
 
-  @Post('create-order/:uuid')
-  @ApiResponse({ status: 201, description: 'Order created successfully.' })
-  @ApiResponse({ status: 400, description: 'Invalid parameters.' })
-  async createOrder(
-    @Param('uuid', ParseUUIDPipe) reservationUuid: string,
-    @Query('currency') currency: string,
-  ) {
-    return this.paypalService.createOrder(reservationUuid, currency);
-  }
+    @Post('create-order/:uuid')
+    @ApiResponse({ status: 201, description: 'Order created successfully.' })
+    @ApiResponse({ status: 400, description: 'Invalid parameters.' })
+    async createOrder(
+      @Param('uuid', ParseUUIDPipe) reservationUuid: string,
+      @Query('currency') currency: string = 'USD',
+    ) {
+      return this.paypalService.createOrder(reservationUuid, currency);
+    }
+    
 
   @Get('return')
   @ApiResponse({ status: 200, description: 'Payment completed successfully.' })
@@ -37,4 +38,4 @@ export class PaypalController {
   }
 
 }
-
+ */

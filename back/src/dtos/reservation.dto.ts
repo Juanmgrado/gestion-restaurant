@@ -10,6 +10,9 @@ export class CreateReservationDto {
 
   @IsString()
   @IsNotEmpty({ message: 'La hora de la reserva es obligatoria' }) 
+  readonly day: string;
+  
+  @IsNotEmpty({ message: 'La fecha de reserva es obligatoria' })
   readonly startTime: string;
 
  

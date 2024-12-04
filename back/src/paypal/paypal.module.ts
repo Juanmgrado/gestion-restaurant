@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+/* import { Module } from '@nestjs/common';
 import { PaypalController } from './paypal.controller';
 import { PaypalService } from './paypal.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -19,3 +19,4 @@ import { NodemailerService } from 'src/nodemailer/nodemailer.service';
   providers: [PaypalService, ReservationsService, NodemailerService]
 })
 export class PaypalModule {}
+ */
