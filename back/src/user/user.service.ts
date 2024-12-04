@@ -1,11 +1,10 @@
 import { ConflictException, Injectable, InternalServerErrorException, NotFoundException, ParseUUIDPipe } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateUserDto } from 'src/dtos/createUser.dto';
-import { User } from 'src/entities/user.entity';
+import { IRol, User } from 'src/entities/user.entity';
 import * as bcryptjs from 'bcryptjs'
 import { Repository } from 'typeorm';
 import { ReturnedUser } from 'src/dtos/returnedUser.dto';
-import { BanUserDto } from 'src/dtos/banUser.dto';
 
 @Injectable()
 export class UserService {
@@ -110,6 +109,23 @@ export class UserService {
                 await this.userRepository.save(foundUser)
 
             return {message: `Usuario ${foundUser.username} baneado correctamente`};
+        
+        }catch(error){
+            throw new InternalServerErrorException('Ocurrió un error inesperado')
+        }
+    }
+
+    async changeRol(field: keyof User,value: string, newRole: IRol): Promise<{message:string} | null>{
+        try{
+
+            const foundUser = await this.userRepository.findOne({where: {[field]: value}})
+                if (!foundUser) throw new NotFoundException('Usuario no encontrado');
+                if(foundUser.rol === newRole) throw new ConflictException('El usuario ya tiene ese rol');
+            foundUser.rol = newRole;
+
+                await this.userRepository.save(foundUser)
+
+            return {message: `El usuario ${foundUser.username} ahora tiene el rol de ${foundUser.rol}`};
         
         }catch(error){
             throw new InternalServerErrorException('Ocurrió un error inesperado')

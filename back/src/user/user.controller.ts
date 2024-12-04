@@ -6,7 +6,7 @@ import { IRol, User } from 'src/entities/user.entity';
 import { Authguard } from 'src/guards/auth.guard';
 import { GetUser } from 'src/decorators/user.decorator';
 import { ReturnedUser } from 'src/dtos/returnedUser.dto';
-import { BanUserDto } from 'src/dtos/banUser.dto';
+import { FindUserDto } from 'src/dtos/findUser.dto';
 
 @Controller('user')
 export class UserController {
@@ -45,7 +45,7 @@ export class UserController {
     @Put('banUser')
     @HttpCode(200)
     async banUser(
-    @Body() banUserDto: BanUserDto,
+    @Body() banUserDto: FindUserDto,
     ): Promise<{message:string} | null> {
     const { username, email, uuid } = banUserDto;
 
@@ -54,5 +54,15 @@ export class UserController {
 
     return await this.userService.banUser(field as keyof User, value);
 }
+@Put('changeRol')
+async changeRol(
+    @Body() findUser: FindUserDto & { newRole: IRol }
+): Promise<{ message: string } | null> {
+    const { username, email, uuid, newRole } = findUser;
 
+    const field = username ? 'username' : email ? 'email' : 'uuid';
+    const value = username || email || uuid;
+
+    return await this.userService.changeRol(field as keyof User, value, newRole);
+}
 }
