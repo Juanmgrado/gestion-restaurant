@@ -23,6 +23,7 @@ export class ReservationsController {
     }
 
     @Get('reservation/:userUuid')
+    @UseGuards(Authguard)
     async getUserReservations(
       @Param('userUuid') userUuid: string,
     ): Promise<ReturnedReservation[] | null> {

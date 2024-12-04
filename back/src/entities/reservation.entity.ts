@@ -30,7 +30,7 @@ export class Reservation {
   @Column()
   tableNumber: number;
 
-  @Column({nullable: false, default: 10.5, type: 'decimal', scale:2})
+  @Column({nullable: false, default: 5.0, type: 'decimal', scale:2})
   reservationWorth: number;
 
   @Column({type: 'enum', enum: IStatus, default: IStatus.pending})

@@ -9,31 +9,21 @@ import { Table } from 'src/entities/table.entity';
 
 @Controller('table')
 export class TableController {
-    constructor(
-        private readonly tableService: TableService
-    ){}
-
-    @Get('tablesSeeder')
-    async tableSeeder(){
-        return this.tableService.tableSeeder()
-    }
+    constructor(private readonly tableService: TableService) {}
 
     @Post('addTable')
     // @UseGuards(RolesGuard)
     // @Roles(IRol.manager)
     @HttpCode(201)
-    async addTable(
-        @Body()newTable: CreateTableDto
-    ):Promise<{message:string} | null>{
-        return await this.tableService.addTable(newTable)
+    async addTable(@Body() newTable: CreateTableDto) {
+        return await this.tableService.addTable(newTable);
     }
 
     @Get('freeTables')
     @UseGuards(Authguard)
     @HttpCode(200)
-    async availableTables(@Body() date: Date){
-        
-        return this.tableService.availableTables(date)
+    async availableTables(@Body() date: Date) {
+        return this.tableService.availableTables(date);
     }
 
     @Post('tables-status')
@@ -49,7 +39,5 @@ export class TableController {
     if(!startTime)throw new BadRequestException('Debe insertar una hora válida')
 
     return await this.tableService.tablesStatus(day, startTime);
-}
-
 }
 
