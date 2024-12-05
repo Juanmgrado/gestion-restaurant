@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, Param, Post, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { CreateReservationDto } from 'src/dtos/reservation.dto';
 import { GetUser } from 'src/decorators/user.decorator';
 import { ReservationsService } from './reservations.service';
@@ -21,7 +21,7 @@ export class ReservationsController {
     ){
         return this.reservationsService.createReservation(newReservation,userUuid)
     }
-     // Proteger con autenticación (opcional, dependiendo de tu arquitectura)
+
     @Get('reservation/:userUuid')
     @UseGuards(Authguard)
     async getUserReservations(
@@ -30,4 +30,12 @@ export class ReservationsController {
       return this.reservationsService.getUserReservations(userUuid);
     }
 
+    @Delete('cancel/:reservationId')
+    @HttpCode(HttpStatus.OK)
+    async cancelReservation(
+      @Param('reservationId') reservationId: string,
+    ): Promise<{ message: string }> {
+      const message = await this.reservationsService.cancelReservation(reservationId);
+      return { message };
+    }
 }

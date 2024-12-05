@@ -11,8 +11,8 @@ export class PedidoController {
   constructor(private readonly pedidoService: PedidoService) {}
   
   @Post()
-/*   @UseGuards(RolesGuard) */
-/*   @Roles(IRol.mozo) */
+   @UseGuards(RolesGuard) 
+   @Roles(IRol.mozo) 
   async crear(@Body() crearPedidoDto: CrearPedidoDto) {
     return this.pedidoService.crearPedido(crearPedidoDto);
   }
@@ -33,8 +33,8 @@ export class PedidoController {
   
 
   @Post('reiniciar-cocina')
- /*  @UseGuards(RolesGuard)
-  @Roles(IRol.chef) */
+  @UseGuards(RolesGuard)
+  @Roles(IRol.chef) 
   reiniciarCocina() {
     return this.pedidoService.reiniciarCocina();
   }

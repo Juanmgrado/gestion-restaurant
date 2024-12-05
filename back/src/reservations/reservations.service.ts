@@ -21,6 +21,22 @@ export class ReservationsService {
         private readonly datasource: DataSource
     ){}
 
+    async cancelReservation(reservationId: string): Promise<string> {
+        const reservation = await this.reservationsRespository.findOne({
+          where: { uuid: reservationId },
+        });
+    
+        if (!reservation) {
+          throw new NotFoundException(`La reserva con ID ${reservationId} no existe`);
+        }
+    
+     
+        reservation.status = IStatus.canceled;
+        await this.reservationsRespository.save(reservation);
+    
+        return `Reserva con ID ${reservationId} cancelada exitosamente.`;
+      }
+
     async createReservation(newReservation: CreateReservationDto, userUuid: string): Promise<ReturnedReservation | null> {
         const { startTime, tableNumber, day, guests } = newReservation;
 
