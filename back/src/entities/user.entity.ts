@@ -7,6 +7,8 @@ import { Payment } from './payment.entity';
 export enum IRol{
   user = 'user',
   manager = 'manager',
+  mozo = 'mozo',
+  chef = 'chef'
 }
 
 @Entity('users')
@@ -14,7 +16,7 @@ export class User {
   @PrimaryGeneratedColumn('uuid')
   uuid: string;
 
-  @Column({ type: 'varchar', nullable: false, unique: true, })
+  @Column({ type: 'varchar', nullable: false, })
   fullname: string;
 
   @Column({unique: true, nullable: false })

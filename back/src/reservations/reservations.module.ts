@@ -16,6 +16,7 @@ import { NodemailerService } from 'src/nodemailer/nodemailer.service';
     ])
   ],
   controllers: [ReservationsController],
-  providers: [ReservationsService, NodemailerService]
+  providers: [ReservationsService, NodemailerService],
+  exports: [ReservationsService]
 })
 export class ReservationsModule {}

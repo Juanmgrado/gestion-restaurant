@@ -1,6 +1,6 @@
-import { ConflictException, Injectable, InternalServerErrorException } from '@nestjs/common';
+import { ConflictException, Injectable, InternalServerErrorException, NotFoundException, ParseUUIDPipe } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateUserDto } from 'src/dtos/user.dto';
+import { CreateUserDto } from 'src/dtos/createUser.dto';
 import { User } from 'src/entities/user.entity';
 import * as bcryptjs from 'bcryptjs'
 import { Repository } from 'typeorm';
@@ -36,7 +36,10 @@ export class UserService {
                 username: createdUser.username,
                 fullname: createdUser.fullname,
                 email: createdUser.email,
-                rol: createdUser.rol
+                rol: createdUser.rol,
+                banned: createdUser.banned,
+                isActive: createdUser. isActive
+
             }
 
         }catch(error){
@@ -48,7 +51,7 @@ export class UserService {
         
         try {
             const foundUser = await this.userRepository.findOne({ where: { [field]: value } });
-                if (!foundUser) throw new ConflictException("Credenciales inválidas");
+                if (!foundUser) throw new NotFoundException("Credenciales inválidas");
             
             return foundUser;
         
@@ -57,8 +60,24 @@ export class UserService {
         }
     }
 
-    async getAllUsers(){
+    async getAllUsers(): Promise <User[]>{
         return await this.userRepository.find()
+    }
+
+    async deleteUser(userUuid: string): Promise <string | void >{
+        
+        try{
+            const foundUser = await this.userRepository.findOneBy({uuid: userUuid})
+                if (!foundUser) throw new NotFoundException('Usuario no encontrado')
+        
+            foundUser.isActive = false;
+            
+            return 'Usuario eliminado con éxito'
+        
+        }catch(error){
+            throw new InternalServerErrorException('Error en el servidor')
+        
+        }             
     }
     async findUserById(id: string): Promise<ReturnedUser | null> {
         try {
@@ -71,6 +90,8 @@ export class UserService {
                 username: user.username,
                 email: user.email,
                 rol: user.rol,
+                isActive: user.isActive,
+                banned: user.banned
             };
         } catch (error) {
             throw new InternalServerErrorException(`Error en el servidor: ${error.message}`);
